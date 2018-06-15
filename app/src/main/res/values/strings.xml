@@ -2,8 +2,10 @@
     <string name="app_name">PhoneBook</string>
     <string name="app_name_cn">电话本</string>
     <string name="test">测试</string>
-    <string name="contact">联系人</string>
-    <string name="record">通话记录</string>
-    <string name="statistic">统计</string>
+    <string name="contact">通讯录</string>
+    <string name="record">最近通话</string>
+    <string name="statistic">通话统计</string>
     <string name="search_hint">需要找什么呢？</string>
+    <string name="show_unpick_call_only">只显示未接来电</string>
+    <string name="show_all_call">显示所有来电</string>
 </resources>

@@ -4,36 +4,58 @@
     android:layout_height="match_parent"
     android:background="@color/bg_white">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="horizontal"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="10">
-    <Spinner
-        android:id="@+id/spinner_time"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="5dp"
         android:layout_weight="1"
-        android:background="@color/text_topbar"
-        android:entries="@array/time"
-        android:visibility="visible" />
+        android:fontFamily="sans-serif"
+        android:gravity="bottom"
+        android:text="@string/statistic"
+        android:textAlignment="viewStart"
+        android:textColor="@color/text_black"
+        android:textSize="36sp" />
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginHorizontal="5dp"
+        android:layout_marginVertical="5dp"
+        android:orientation="horizontal">
+
+        <Spinner
+            android:id="@+id/spinner_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/bg_search"
+            android:entries="@array/time"
+            android:visibility="visible" />
+
         <Spinner
             android:id="@+id/spinner_content"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/text_topbar"
+            android:background="@color/bg_search"
             android:entries="@array/content"
             android:visibility="visible" />
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:background="@color/div_white"
+        android:layout_alignParentBottom="true"/>
     <TextView
         android:id="@+id/txt_statistic_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_weight="350"
         android:gravity="center"
         android:text="@string/statistic"
-        android:textColor="@color/text_green"
+        android:textColor="@color/text_black"
         android:textSize="20sp" />
 
 
