@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">PhoneBook</string>
+    <string name="app_name_cn">电话本</string>
+    <string name="test">测试</string>
+    <string name="contact">联系人</string>
+    <string name="record">通话记录</string>
+    <string name="statistic">统计</string>
+    <string name="search_hint">需要找什么呢？</string>
 </resources>

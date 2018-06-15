@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         fManager = getFragmentManager();
         bindViews();
-        txt_contact.performClick();   //模拟一次点击，既进去后选择第一项
+        txt_contact.performClick();   //模拟一次点击，即进去后选择第一项
     }
 
     //UI组件初始化与事件绑定
@@ -52,15 +52,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         txt_statistic.setSelected(false);
     }
 
+    //隐藏所有Fragment
+    private void hideAllFragment(FragmentTransaction fragmentTransaction){
+        if(fg1 != null)fragmentTransaction.hide(fg1);
+        if(fg2 != null)fragmentTransaction.hide(fg2);
+        if(fg3 != null)fragmentTransaction.hide(fg3);
+    }
 
-
+    //响应点中不同fragment后的动作，将要加载的内容绘制到ly_content中
     @Override
     public void onClick(View v) {
         FragmentTransaction fTransaction = fManager.beginTransaction();
+        //先隐藏已显示的fragment
+        hideAllFragment(fTransaction);
         switch (v.getId()){
             case R.id.txt_contact:
                 setSelected();
                 txt_contact.setSelected(true);
+                // 若fragment未初始化，则初始化并发送信息到MyFragment类，选择绘制对应的界面。否则直接显示已绘制的界面。
                 if(fg1 == null){
                     fg1 = new MyFragment();
                     Bundle bundle = new Bundle();

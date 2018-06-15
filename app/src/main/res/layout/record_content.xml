@@ -5,11 +5,11 @@
     android:background="@color/bg_white">
 
     <TextView
-        android:id="@+id/txt_content"
+        android:id="@+id/txt_record_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="通话记录"
+        android:text="@string/record"
         android:textColor="@color/text_green"
         android:textSize="20sp"/>
 

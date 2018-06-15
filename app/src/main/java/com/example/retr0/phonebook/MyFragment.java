@@ -1,5 +1,6 @@
 package com.example.retr0.phonebook;
 
+
 import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ public class MyFragment extends Fragment {
     public MyFragment() {
     }
 
+    // 自定义fragment的绘制，根据点击事件传入的消息，绘制不同的页面
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = null;

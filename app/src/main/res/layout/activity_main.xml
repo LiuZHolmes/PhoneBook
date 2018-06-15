@@ -18,7 +18,7 @@
             android:gravity="center"
             android:textSize="18sp"
             android:textColor="@color/text_topbar"
-            android:text="电话本"/>
+            android:text="@string/app_name_cn"/>
 
 
         <View
@@ -48,7 +48,7 @@
             android:drawablePadding="3dp"
             android:gravity="center"
             android:padding="5dp"
-            android:text="联系人"
+            android:text="@string/contact"
             android:textColor="@drawable/tab_menu_text"
             android:textSize="16sp" />
 
@@ -61,7 +61,7 @@
             android:drawablePadding="3dp"
             android:gravity="center"
             android:padding="5dp"
-            android:text="通话记录"
+            android:text="@string/record"
             android:textColor="@drawable/tab_menu_text"
             android:textSize="16sp" />
 
@@ -74,7 +74,7 @@
             android:drawablePadding="3dp"
             android:gravity="center"
             android:padding="5dp"
-            android:text="统计"
+            android:text="@string/statistic"
             android:textColor="@drawable/tab_menu_text"
             android:textSize="16sp" />
 
