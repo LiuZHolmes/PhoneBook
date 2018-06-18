@@ -8,4 +8,5 @@
     <string name="search_hint">需要找什么呢？</string>
     <string name="show_unpick_call_only">只显示未接来电</string>
     <string name="show_all_call">显示所有来电</string>
+    <string name="contacter">联系人</string>
 </resources>
