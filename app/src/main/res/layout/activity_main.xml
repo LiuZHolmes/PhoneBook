@@ -45,12 +45,11 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/tab_menu_bg"
-            android:drawableTop="@mipmap/contact"
+            android:background="@color/bg_white"
+            android:drawableBottom="@drawable/tab_menu_text"
             android:drawablePadding="3dp"
             android:gravity="center"
             android:padding="5dp"
-            android:textColor="@drawable/tab_menu_text"
             android:textSize="16sp" />
 
         <TextView
@@ -58,12 +57,11 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/tab_menu_bg"
+            android:background="@color/bg_white"
             android:drawablePadding="3dp"
             android:gravity="center"
             android:padding="5dp"
-            android:drawableBottom="@mipmap/record"
-            android:textColor="@drawable/tab_menu_text"
+            android:drawableBottom="@drawable/tab_menu_text1"
             android:textSize="16sp" />
 
         <TextView
@@ -71,12 +69,11 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/tab_menu_bg"
+            android:background="@color/bg_white"
             android:drawablePadding="3dp"
             android:gravity="center"
             android:padding="5dp"
-            android:drawableBottom="@mipmap/statistic"
-            android:textColor="@drawable/tab_menu_text"
+            android:drawableBottom="@drawable/tab_menu_text2"
             android:textSize="16sp" />
 
     </LinearLayout>

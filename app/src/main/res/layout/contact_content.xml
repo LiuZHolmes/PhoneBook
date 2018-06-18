@@ -10,7 +10,7 @@
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_above="@+id/search_contact"
         android:layout_centerHorizontal="true"
         android:layout_marginHorizontal="5dp"
@@ -68,19 +68,18 @@
         android:layout_gravity="right"
         android:layout_weight="1" />
 
-    <android.support.design.widget.FloatingActionButton
+    <Button
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_alignEnd="@+id/search_contact"
         android:layout_alignParentTop="true"
         android:layout_weight="1"
+        android:background="@drawable/tab_menu_bg"
         android:clickable="true"
-        android:gravity="right|bottom"
-        android:onClick="click_add_user"
-        app:backgroundTint="@color/bg_topbar"
-        app:fabSize="normal"
-        app:srcCompat="@mipmap/add_user" />
+        android:drawableBottom="@mipmap/add_user"
+        android:gravity="right|top"
+        android:onClick="click_add_user" />
 
 
 </RelativeLayout>

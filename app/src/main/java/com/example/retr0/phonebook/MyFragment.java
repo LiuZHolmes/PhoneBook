@@ -11,8 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import static com.example.retr0.phonebook.MainActivity.fg4;
-import static com.example.retr0.phonebook.MainActivity.fg5;
 
 
 public class MyFragment extends Fragment {
