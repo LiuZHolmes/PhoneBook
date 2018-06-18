@@ -18,7 +18,8 @@
             android:gravity="center"
             android:textSize="18sp"
             android:textColor="@color/text_topbar"
-            android:text="@string/app_name_cn"/>
+            android:text="电话本"
+            />
 
 
         <View
@@ -34,7 +35,7 @@
     <LinearLayout
         android:id="@+id/ly_tab_bar"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:background="@color/bg_white"
         android:orientation="horizontal">
@@ -44,12 +45,11 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/tab_menu_bg"
+            android:background="@color/bg_white"
+            android:drawableBottom="@drawable/tab_menu_text"
             android:drawablePadding="3dp"
             android:gravity="center"
             android:padding="5dp"
-            android:text="@string/contact"
-            android:textColor="@drawable/tab_menu_text"
             android:textSize="16sp" />
 
         <TextView
@@ -57,12 +57,11 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/tab_menu_bg"
+            android:background="@color/bg_white"
             android:drawablePadding="3dp"
             android:gravity="center"
             android:padding="5dp"
-            android:text="@string/record"
-            android:textColor="@drawable/tab_menu_text"
+            android:drawableBottom="@drawable/tab_menu_text1"
             android:textSize="16sp" />
 
         <TextView
@@ -70,12 +69,11 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/tab_menu_bg"
+            android:background="@color/bg_white"
             android:drawablePadding="3dp"
             android:gravity="center"
             android:padding="5dp"
-            android:text="@string/statistic"
-            android:textColor="@drawable/tab_menu_text"
+            android:drawableBottom="@drawable/tab_menu_text2"
             android:textSize="16sp" />
 
     </LinearLayout>

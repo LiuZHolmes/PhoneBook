@@ -1,55 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:orientation="vertical" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_white">
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
+        android:layout_above="@+id/search_contact"
+        android:layout_centerHorizontal="true"
         android:layout_marginHorizontal="5dp"
         android:layout_weight="1"
         android:fontFamily="sans-serif"
         android:gravity="bottom"
         android:text="@string/contact"
-        android:textAlignment="viewStart"
+        android:textAlignment="textStart"
         android:textColor="@color/text_black"
-        android:textSize="36sp" />
-    <android.support.v7.widget.SearchView
+        android:textSize="36sp"
+        android:typeface="sans" />
+
+    <SearchView
         android:id="@+id/search_contact"
-        android:layout_marginHorizontal="5dp"
-        android:layout_marginVertical="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/textView"
+        android:layout_below="@+id/floatingActionButton"
+        android:layout_marginHorizontal="5dp"
+        android:layout_marginVertical="5dp"
         android:layout_weight="5"
         android:background="@color/bg_search"
+        android:visibility="visible"
         app:iconifiedByDefault="true"
         app:queryHint="@string/search_hint"
-        android:visibility="visible" />
+        tools:ignore="MissingPrefix">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2px"
-        android:background="@color/div_white"
-        android:layout_alignParentBottom="true"/>
+    </SearchView>
 
     <TextView
         android:id="@+id/txt_contact_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:layout_weight="30"
         android:gravity="center"
         android:text="@string/contact"
         android:textColor="@color/text_black"
         android:textSize="20sp" />
 
-    <android.support.design.widget.FloatingActionButton
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_alignParentBottom="true"
+        android:background="@color/div_white"
+        android:id="@+id/view3" />
+
+    <com.example.retr0.phonebook.WordsNavigation
+        android:id="@+id/words"
+        android:layout_width="30dp"
+        android:layout_height="450dp"
+        android:layout_alignEnd="@+id/textView"
+        android:layout_below="@+id/search_contact"
+        android:layout_gravity="right"
+        android:layout_weight="1" />
+
+    <Button
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
+        android:layout_alignEnd="@+id/search_contact"
+        android:layout_alignParentTop="true"
         android:layout_weight="1"
+        android:background="@drawable/tab_menu_bg"
         android:clickable="true"
-        android:layout_gravity="right|bottom"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        android:drawableBottom="@mipmap/add_user"
+        android:gravity="right|top"
+        android:onClick="click_add_user" />
 
-</LinearLayout>
+
+</RelativeLayout>
+
+
+

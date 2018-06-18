@@ -12,9 +12,10 @@
         android:fontFamily="sans-serif"
         android:gravity="bottom"
         android:text="@string/statistic"
-        android:textAlignment="viewStart"
+        android:textAlignment="textStart"
         android:textColor="@color/text_black"
-        android:textSize="36sp" />
+        android:textSize="36sp"
+        android:typeface="sans" />
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
