@@ -10,4 +10,5 @@
     <string name="show_all_call">显示所有来电</string>
     <string name="contacter">联系人</string>
     <string name="unpick">未接来电</string>
+    <string name="add_succeed">添加成功</string>
 </resources>

@@ -27,15 +27,15 @@ public class MyFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = null;
         this.content = (String) getArguments().get("str");
-        if(content == "联系人")
+        if(content == getResources().getString(R.string.contact))
         {
             view = inflater.inflate(R.layout.contact_content,container,false);
         }
-        else if(content == "通话记录")
+        else if(content == getResources().getString(R.string.record))
         {
             view = inflater.inflate(R.layout.record_content,container,false);
         }
-        else if(content == "统计")
+        else if(content == getResources().getString(R.string.statistic))
         {
             view = inflater.inflate(R.layout.statistic_content,container,false);
         }

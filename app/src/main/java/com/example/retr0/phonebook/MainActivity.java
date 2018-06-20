@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if(fg1 == null){
                     fg1 = new MyFragment();
                     Bundle bundle = new Bundle();
-                    bundle.putString("str","联系人");
+                    bundle.putString("str",getResources().getString(R.string.contact));
                     fg1.setArguments(bundle);
                     fTransaction.add(R.id.ly_content,fg1);
                 }else{
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if(fg2 == null){
                     fg2 = new MyFragment();
                     Bundle bundle = new Bundle();
-                    bundle.putString("str","通话记录");
+                    bundle.putString("str",getResources().getString(R.string.record));
                     fg2.setArguments(bundle);
                     fTransaction.add(R.id.ly_content,fg2);
                 }else{
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if(fg3 == null){
                     fg3 = new MyFragment();
                     Bundle bundle = new Bundle();
-                    bundle.putString("str","统计");
+                    bundle.putString("str",getResources().getString(R.string.statistic));
                     fg3.setArguments(bundle);
                     fTransaction.add(R.id.ly_content,fg3);
                 }else{
