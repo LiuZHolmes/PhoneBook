@@ -25,7 +25,7 @@ public class UserInformation extends AppCompatActivity {
         startActivity(intent);
     }
     public void check_ok(View view) {
-        DisplayToast("添加成功");
+        DisplayToast(getResources().getString(R.string.add_succeed));
     }
     public void DisplayToast(String s) {
         Toast toast=Toast.makeText(this,s,Toast.LENGTH_SHORT);

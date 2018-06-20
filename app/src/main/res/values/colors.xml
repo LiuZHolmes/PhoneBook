@@ -9,9 +9,13 @@
     <color name="bg_grey">#e4e4e4</color>
     <color name="bg_search">#d6d6d6</color>
     <color name="bg_topbar">#ffffff</color>
+    <color name="bg_wordnavi">#F7F7F7</color>
     <color name="text_topbar">#716f6f</color>
     <color name="text_green">#34e254</color>
     <color name="text_grey">#979797</color>
     <color name="text_black">#000000</color>
     <color name="selected_blue">#0e6aff</color>
+    <color name="wechat_green">#64aa31</color>
+    <color name="google_green">#1fd9a1</color>
+    <color name="google_blue">#2d76ff</color>
 </resources>

@@ -1,5 +1,6 @@
 package com.example.retr0.phonebook;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -50,16 +51,17 @@ public class WordsNavigation extends View {
     /**
      * 初始化画笔
      */
+    @SuppressLint("ResourceType")
     private void init() {
         wordsPaint = new Paint();
-        wordsPaint.setColor(Color.parseColor("#F7F7F7"));
+        wordsPaint.setColor(Color.parseColor(getResources().getString(R.color.bg_wordnavi)));
         wordsPaint.setAntiAlias(true);
         wordsPaint.setTextSize(40);
         wordsPaint.setTypeface(Typeface.DEFAULT_BOLD);
 
         bgPaint = new Paint();
         bgPaint.setAntiAlias(true);
-        bgPaint.setColor(Color.parseColor("#1dcdef"));
+        bgPaint.setColor(Color.parseColor(getResources().getString(R.color.google_blue)));
     }
 
     @Override
