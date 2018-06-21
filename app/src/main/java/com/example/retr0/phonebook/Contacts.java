@@ -10,7 +10,14 @@ public class Contacts {
     private String PhoneNumber;
     private String Address;
     private String Birthday;
-
+    Contacts(String Name, String HomeNumber, String PhoneNumber, String Address, String Birthday)
+    {
+        this.Name = Name;
+        this.HomeNumber = HomeNumber;
+        this.PhoneNumber = PhoneNumber;
+        this.Address = Address;
+        this.Birthday = Birthday;
+    }
     public String getName() {
         return Name;
     }
