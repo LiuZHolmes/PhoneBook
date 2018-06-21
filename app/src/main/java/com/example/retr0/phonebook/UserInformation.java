@@ -59,6 +59,10 @@ public class UserInformation extends AppCompatActivity {
         editor.apply();
 
         DisplayToast(getResources().getString(R.string.add_succeed));
+
+        Intent intent = new Intent();
+        intent.setClass(UserInformation.this,UserShowInformation.class);
+        startActivity(intent);
     }
     public void DisplayToast(String s) {
         Toast toast=Toast.makeText(this,s,Toast.LENGTH_SHORT);
