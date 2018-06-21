@@ -11,7 +11,7 @@ import android.widget.TextView;
 public class UserShowInformation extends AppCompatActivity {
     private Button return_btn;
     private Button ok_button;
-    private int num;
+    private int size;
     private TextView etName,etHome,etMobile,etAdd,etBirth;
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
@@ -21,8 +21,7 @@ public class UserShowInformation extends AppCompatActivity {
         setContentView(R.layout.activity_user_show_information);
         pref = getSharedPreferences("ContactData", MODE_PRIVATE);
 
-        String size=pref.getString("size","0");
-        num=Integer.parseInt(size);
+        size=pref.getInt("size",0);
 
         return_btn = findViewById(R.id.return_button);
         ok_button= findViewById(R.id.ok_button);
@@ -33,15 +32,15 @@ public class UserShowInformation extends AppCompatActivity {
         etAdd=findViewById(R.id.edit_add);
         etBirth=findViewById(R.id.edit_birth);
 
-        String temp = pref.getString("contact_name", "NULL");
+        String temp = pref.getString("contactName", "NULL");
         etName.setText(temp);
-        temp = pref.getString("contact_home", "NULL");
+        temp = pref.getString("contactHome", "NULL");
         etHome.setText(temp);
-        temp = pref.getString("contact_mobile", "NULL");
+        temp = pref.getString("contactMobile", "NULL");
         etMobile.setText(temp);
-        temp = pref.getString("contact_add", "NULL");
+        temp = pref.getString("contactAdd", "NULL");
         etAdd.setText(temp);
-        temp = pref.getString("contact_birth", "NULL");
+        temp = pref.getString("contactBirth", "NULL");
         etBirth.setText(temp);
     }
     public void return_main_page(View view) {

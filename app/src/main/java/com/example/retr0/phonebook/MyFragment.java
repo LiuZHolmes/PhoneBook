@@ -61,11 +61,11 @@ public class MyFragment extends Fragment {
                     String birthday = contact.getBirthday();
 
                     editor=pref.edit();
-                    editor.putString("contact_name",name);
-                    editor.putString("contact_home",homeNum);
-                    editor.putString("contact_mobile",phoneNum);
-                    editor.putString("contact_add",address);
-                    editor.putString("contact_birth",birthday);
+                    editor.putString("contactName",name);
+                    editor.putString("contactHome",homeNum);
+                    editor.putString("contactMobile",phoneNum);
+                    editor.putString("contactAdd",address);
+                    editor.putString("contactBirth",birthday);
                     editor.apply();
 
 
