@@ -18,6 +18,8 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private FragmentManager fManager;
 
     private WordsNavigation word;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         txt_statistic = (TextView) findViewById(R.id.txt_statistic);
         ly_content = (FrameLayout) findViewById(R.id.ly_content);
 
-        switch_unpick = (Switch)LayoutInflater.from(MainActivity.this).inflate(R.layout.record_content, null).findViewById(R.id.switch_unpick);
+        //switch_unpick = (Switch)LayoutInflater.from(MainActivity.this).inflate(R.layout.record_content, null).findViewById(R.id.switch_unpick);
         add_user_button =(Button)findViewById(R.id.floatingActionButton);
         word = (WordsNavigation) LayoutInflater.from(MainActivity.this).inflate(R.layout.contact_content, null).findViewById(R.id.words);
 
@@ -138,5 +141,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         intent.setClass(MainActivity.this,UserInformation.class);
         startActivity(intent);
     }
+
 
 }

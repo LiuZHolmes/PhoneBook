@@ -1,21 +1,31 @@
 package com.example.retr0.phonebook;
 
 
-import android.annotation.SuppressLint;
 import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ListView;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MyFragment extends Fragment {
 
     private String content;
+
+    //call record issues
+    private ListView recordListView;
+    private List<CallRecord> records;
+    private MyRecordAdapter mAdapter;
 
 
     public MyFragment() {
@@ -34,6 +44,11 @@ public class MyFragment extends Fragment {
         else if(content == getResources().getString(R.string.record))
         {
             view = inflater.inflate(R.layout.record_content,container,false);
+            readRecords();
+            Log.d("mmznb","readOK");
+            recordListView = (ListView) view.findViewById(R.id.recordListView);
+            recordListView.setAdapter(new MyRecordAdapter(getActivity(), records));
+
         }
         else if(content == getResources().getString(R.string.statistic))
         {
@@ -42,5 +57,28 @@ public class MyFragment extends Fragment {
         Log.d("content",content);
         return view;
     }
+
+
+    public void readRecords()
+    {
+        records = new ArrayList<CallRecord>();
+        InputStream inputStream = getResources().openRawResource(R.raw.rawrecords);
+        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+        BufferedReader reader = new BufferedReader(inputStreamReader);
+        String line;
+        try {
+            while ((line = reader.readLine()) != null)
+            {
+                String [] arr = line.split("\\s+");
+                CallRecord tmpRecord = new CallRecord(arr[0], arr[1], arr[2], arr[3], arr[4]);
+                records.add(tmpRecord);
+            }
+            inputStream.close();
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
 
 }

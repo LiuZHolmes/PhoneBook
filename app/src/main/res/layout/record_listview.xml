@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:background="@color/bg_white">
+
+     <TextView
+         android:id="@+id/number"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:singleLine="true"
+         android:text="1319195320"
+         android:textColor="#000"
+         android:textSize="30sp" />
+
+     <TextView
+         android:id="@+id/date"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_below="@+id/number"
+         android:layout_marginTop="5dp"
+         android:layout_alignLeft="@+id/number"
+         android:singleLine="true"
+         android:text="2018/06/20"
+         android:textColor="#444"
+         android:textSize="17sp" />
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/date"
+        android:layout_toRightOf="@+id/date"
+        android:layout_marginLeft="5dp"
+        android:singleLine="true"
+        android:text="02:45:00"
+        android:textColor="#444"
+        android:textSize="17sp" />
+
+    <TextView
+        android:id="@+id/type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/number"
+        android:layout_toRightOf="@+id/number"
+        android:layout_marginLeft="10dp"
+        android:singleLine="true"
+        android:text="呼入"
+        android:textColor="#444"
+        android:textSize="23sp" />
+
+    <TextView
+        android:id="@+id/location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/date"
+        android:layout_toRightOf="@+id/time"
+        android:layout_marginLeft="5dp"
+        android:singleLine="true"
+        android:text="GuangZhou"
+        android:textColor="#444"
+        android:textSize="17sp" />
+    </RelativeLayout>
