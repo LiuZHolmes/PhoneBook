@@ -49,28 +49,29 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:layout_weight="1">
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/edit_name"
-            android:layout_alignBottom="@+id/edit_name"
+
             android:layout_alignParentStart="true"
             android:layout_marginStart="48dp"
+            android:layout_marginTop="120dp"
             android:text="姓名："
             android:textColor="@color/text_black"
             android:textSize="18sp" />
 
-        <EditText
+        <TextView
             android:id="@+id/edit_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="27dp"
-            android:layout_marginTop="116dp"
-            android:layout_toEndOf="@+id/textView2"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/textView2"
+            android:layout_marginEnd="90dp"
             android:ems="10"
             android:inputType="textPersonName"
             android:textColor="@color/colorPrimary" />
@@ -81,18 +82,17 @@
             android:layout_height="wrap_content"
             android:layout_alignStart="@+id/textView2"
             android:layout_below="@+id/edit_name"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="45dp"
             android:text="家庭："
             android:textColor="@color/text_black"
             android:textSize="18sp" />
 
-        <EditText
+        <TextView
             android:id="@+id/edit_home"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/edit_name"
-            android:layout_below="@+id/edit_name"
-            android:layout_marginTop="22dp"
+            android:layout_alignStart="@+id/edit_name"
+            android:layout_alignTop="@+id/textView3"
             android:ems="10"
             android:hint="Tel"
             android:inputType="phone"
@@ -104,18 +104,17 @@
             android:layout_height="wrap_content"
             android:layout_alignStart="@+id/textView3"
             android:layout_below="@+id/edit_home"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="45dp"
             android:text="手机："
             android:textColor="@color/text_black"
             android:textSize="18sp" />
 
-        <EditText
+        <TextView
             android:id="@+id/edit_mobile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/edit_home"
-            android:layout_below="@+id/edit_home"
-            android:layout_marginTop="19dp"
+            android:layout_alignStart="@+id/edit_name"
+            android:layout_alignTop="@+id/textView4"
             android:ems="10"
             android:inputType="phone"
             android:textColor="@color/colorPrimary" />
@@ -126,18 +125,17 @@
             android:layout_height="wrap_content"
             android:layout_alignStart="@+id/textView4"
             android:layout_below="@+id/edit_mobile"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="45dp"
             android:text="地址："
             android:textColor="@color/text_black"
             android:textSize="18sp" />
 
-        <EditText
+        <TextView
             android:id="@+id/edit_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/edit_mobile"
-            android:layout_below="@+id/edit_mobile"
-            android:layout_marginTop="17dp"
+            android:layout_alignStart="@+id/edit_name"
+            android:layout_alignTop="@+id/textView5"
             android:ems="10"
             android:inputType="text"
             android:textColor="@color/colorPrimary" />
@@ -148,18 +146,17 @@
             android:layout_height="wrap_content"
             android:layout_alignStart="@+id/textView5"
             android:layout_below="@+id/edit_add"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="45dp"
             android:text="生日："
             android:textColor="@color/text_black"
             android:textSize="18sp" />
 
-        <EditText
+        <TextView
             android:id="@+id/edit_birth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/textView6"
-            android:layout_alignBottom="@+id/textView6"
-            android:layout_alignStart="@+id/edit_add"
+            android:layout_alignStart="@+id/edit_name"
+            android:layout_alignTop="@+id/textView6"
             android:ems="10"
             android:hint="Bir"
             android:inputType="date"
@@ -171,7 +168,7 @@
             android:layout_height="wrap_content"
             android:layout_alignStart="@+id/textView6"
             android:layout_below="@+id/edit_birth"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="40dp"
             android:drawableTop="@mipmap/erweima" />
     </RelativeLayout>
 </RelativeLayout>
