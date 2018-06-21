@@ -35,7 +35,6 @@
         android:layout_alignEnd="@+id/show_title"
         android:layout_weight="10"
         android:gravity="center"
-        android:text="@string/record"
         android:textColor="@color/text_black"
         android:textSize="20sp" />
 

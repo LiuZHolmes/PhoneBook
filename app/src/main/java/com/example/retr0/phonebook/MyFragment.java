@@ -2,11 +2,15 @@ package com.example.retr0.phonebook;
 
 
 import android.app.Fragment;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.io.BufferedReader;
@@ -23,10 +27,12 @@ public class MyFragment extends Fragment {
     private String content;
 
     //call record issues
-    private ListView recordListView;
+    private ListView recordListView, contactListView;
     private List<CallRecord> records;
+    private List<Contacts> Contact;
     private MyRecordAdapter mAdapter;
-
+    private SharedPreferences pref;
+    private SharedPreferences.Editor editor;
 
     public MyFragment() {
     }
@@ -36,10 +42,38 @@ public class MyFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = null;
+        pref = getActivity().getSharedPreferences("ContactData", Context.MODE_PRIVATE);
         this.content = (String) getArguments().get("str");
         if(content == getResources().getString(R.string.contact))
         {
             view = inflater.inflate(R.layout.contact_content,container,false);
+            readContacts();
+            contactListView = (ListView)view.findViewById(R.id.contactListView);
+            contactListView.setAdapter(new MyContactsAdapter(getActivity(),Contact));
+            contactListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Contacts contact = Contact.get(position);
+                    String name = contact.getName();
+                    String homeNum = contact.getHomeNumber();
+                    String phoneNum = contact.getPhoneNumber();
+                    String address = contact.getAddress();
+                    String birthday = contact.getBirthday();
+
+                    editor=pref.edit();
+                    editor.putString("contact_name",name);
+                    editor.putString("contact_home",homeNum);
+                    editor.putString("contact_mobile",phoneNum);
+                    editor.putString("contact_add",address);
+                    editor.putString("contact_birth",birthday);
+                    editor.apply();
+
+
+                    Intent intent=new Intent(getActivity(),UserShowInformation.class);
+                    startActivity(intent);
+
+                }
+            });
         }
         else if(content == getResources().getString(R.string.record))
         {
@@ -72,6 +106,26 @@ public class MyFragment extends Fragment {
                 String [] arr = line.split("\\s+");
                 CallRecord tmpRecord = new CallRecord(arr[0], arr[1], arr[2], arr[3], arr[4]);
                 records.add(tmpRecord);
+            }
+            inputStream.close();
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+    public void readContacts()
+    {
+        Contact = new ArrayList<Contacts>();
+        InputStream inputStream = getResources().openRawResource(R.raw.rawcontact);
+        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+        BufferedReader reader = new BufferedReader(inputStreamReader);
+        String line;
+        try {
+            while ((line = reader.readLine()) != null)
+            {
+                String [] arr = line.split("\\s+");
+                Contacts tmpContact = new Contacts(arr[0], arr[1], arr[2], arr[3], arr[4]);
+                Contact.add(tmpContact);
             }
             inputStream.close();
         } catch (IOException e)
