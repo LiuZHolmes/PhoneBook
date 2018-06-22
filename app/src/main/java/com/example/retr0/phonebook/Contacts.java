@@ -10,13 +10,15 @@ public class Contacts {
     private String PhoneNumber;
     private String Address;
     private String Birthday;
-    Contacts(String Name, String HomeNumber, String PhoneNumber, String Address, String Birthday)
+    private int Num;
+    Contacts(String Name, String HomeNumber, String PhoneNumber, String Address, String Birthday, int Num)
     {
         this.Name = Name;
         this.HomeNumber = HomeNumber;
         this.PhoneNumber = PhoneNumber;
         this.Address = Address;
         this.Birthday = Birthday;
+        this.Num = Num;
     }
     public String getName() {
         return Name;
@@ -38,6 +40,8 @@ public class Contacts {
         return Birthday;
     }
 
+    public int getNum() { return Num; }
+
     public void setName(String s) {
         Name = s;
     }
@@ -57,4 +61,6 @@ public class Contacts {
     public void setBirthday(String s) {
         Birthday = s;
     }
+
+    public void setNum(int i) { Num = i; }
 }
