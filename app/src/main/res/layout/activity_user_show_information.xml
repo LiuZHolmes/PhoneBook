@@ -41,8 +41,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/tab_menu_bg"
-            android:drawableBottom="@mipmap/check_circle"
-            android:onClick="check_ok" />
+            />
 
     </LinearLayout>
 
@@ -72,6 +71,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignTop="@+id/textView2"
             android:layout_marginEnd="90dp"
+            android:textSize="18sp"
             android:ems="10"
             android:inputType="textPersonName"
             android:textColor="@color/colorPrimary" />
@@ -93,6 +93,7 @@
             android:layout_height="wrap_content"
             android:layout_alignStart="@+id/edit_name"
             android:layout_alignTop="@+id/textView3"
+            android:textSize="18sp"
             android:ems="10"
             android:hint="Tel"
             android:inputType="phone"
@@ -115,6 +116,7 @@
             android:layout_height="wrap_content"
             android:layout_alignStart="@+id/edit_name"
             android:layout_alignTop="@+id/textView4"
+            android:textSize="18sp"
             android:ems="10"
             android:inputType="phone"
             android:textColor="@color/colorPrimary" />
@@ -136,6 +138,7 @@
             android:layout_height="wrap_content"
             android:layout_alignStart="@+id/edit_name"
             android:layout_alignTop="@+id/textView5"
+            android:textSize="18sp"
             android:ems="10"
             android:inputType="text"
             android:textColor="@color/colorPrimary" />
@@ -157,6 +160,7 @@
             android:layout_height="wrap_content"
             android:layout_alignStart="@+id/edit_name"
             android:layout_alignTop="@+id/textView6"
+            android:textSize="18sp"
             android:ems="10"
             android:hint="Bir"
             android:inputType="date"
