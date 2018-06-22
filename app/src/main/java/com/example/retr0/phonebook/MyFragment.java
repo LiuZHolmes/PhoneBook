@@ -6,12 +6,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -28,9 +30,10 @@ public class MyFragment extends Fragment {
 
     //call record issues
     private ListView recordListView, contactListView;
+    private SearchView searchView;
     private List<CallRecord> records;
-    private List<Contacts> Contact;
-    private MyRecordAdapter mAdapter;
+    private List<Contacts> Contact,findList;
+    private MyContactsAdapter mAdapter;
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
 
@@ -48,6 +51,46 @@ public class MyFragment extends Fragment {
         {
             view = inflater.inflate(R.layout.contact_content,container,false);
             readContacts();
+            findList=new ArrayList<Contacts>();
+            searchView=view.findViewById(R.id.search_contact);
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    if(TextUtils.isEmpty(newText))
+                    {
+                        contactListView.setFilterText(newText);
+                    }
+                    else {
+                        findList.clear();
+                        for(int i = 0; i < Contact.size(); i++)
+                        {
+                            Contacts contact=Contact.get(i);
+                            if(contact.getName().contains(newText))
+                            {
+                                findList.add(contact);
+                            }
+                        }
+                        mAdapter=new MyContactsAdapter(getActivity(),findList);
+                        mAdapter.notifyDataSetChanged();
+                        contactListView.setAdapter(mAdapter);
+                    }
+                    return false;
+                }
+            });
+
+            searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+                @Override
+                public boolean onClose() {
+                    contactListView.setAdapter(new MyContactsAdapter(getActivity(),Contact));
+                    return false;
+                }
+            });
+
             contactListView = (ListView)view.findViewById(R.id.contactListView);
             contactListView.setAdapter(new MyContactsAdapter(getActivity(),Contact));
             contactListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
