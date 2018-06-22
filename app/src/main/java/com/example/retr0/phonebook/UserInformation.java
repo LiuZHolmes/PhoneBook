@@ -14,7 +14,7 @@ public class UserInformation extends AppCompatActivity {
 
     private Button return_btn;
     private Button ok_button;
-    private int num;
+    private int size;
     private EditText etName,etHome,etMobile,etAdd,etBirth;
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
@@ -24,8 +24,7 @@ public class UserInformation extends AppCompatActivity {
         setContentView(R.layout.activity_user_information);
         pref = getSharedPreferences("ContactData", MODE_PRIVATE);
 
-        String size=pref.getString("size","0");
-        num=Integer.parseInt(size);
+        size=pref.getInt("size",0);
 
         return_btn = findViewById(R.id.return_button);
         ok_button= findViewById(R.id.ok_button);
@@ -51,11 +50,17 @@ public class UserInformation extends AppCompatActivity {
         String birth=etBirth.getText().toString();
 
         editor=pref.edit();
-        editor.putString("contact_name"+num,name);
-        editor.putString("contact_home"+num,home);
-        editor.putString("contact_mobile"+num,mobile);
-        editor.putString("contact_add"+num,add);
-        editor.putString("contact_birth"+num,birth);
+        editor.putString("contact_name"+size,name);
+        editor.putString("contact_home"+size,home);
+        editor.putString("contact_mobile"+size,mobile);
+        editor.putString("contact_add"+size,add);
+        editor.putString("contact_birth"+size,birth);
+        editor.putInt("size",size+1);
+        editor.putString("contactName",name);
+        editor.putString("contactHome",home);
+        editor.putString("contactMobile",mobile);
+        editor.putString("contactAdd",add);
+        editor.putString("contactBirth",birth);
         editor.apply();
 
         DisplayToast(getResources().getString(R.string.add_succeed));
