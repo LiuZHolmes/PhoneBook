@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -140,6 +141,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent = new Intent();
         intent.setClass(MainActivity.this,UserInformation.class);
         startActivity(intent);
+    }
+
+    public boolean onQueryTextSubmit(String query) {
+        if(TextUtils.isEmpty(query)) {
+            Toast.makeText(this, " ", Toast.LENGTH_SHORT);
+
+        }
+        return true;
     }
 
 

@@ -59,6 +59,7 @@ public class MyFragment extends Fragment {
                     String phoneNum = contact.getPhoneNumber();
                     String address = contact.getAddress();
                     String birthday = contact.getBirthday();
+                    int num = contact.getNum();
 
                     editor=pref.edit();
                     editor.putString("contactName",name);
@@ -66,14 +67,17 @@ public class MyFragment extends Fragment {
                     editor.putString("contactMobile",phoneNum);
                     editor.putString("contactAdd",address);
                     editor.putString("contactBirth",birthday);
+                    editor.putInt("contactSize", num);
                     editor.apply();
+
 
 
                     Intent intent=new Intent(getActivity(),UserShowInformation.class);
                     startActivity(intent);
-
                 }
             });
+
+
         }
         else if(content == getResources().getString(R.string.record))
         {
@@ -125,10 +129,10 @@ public class MyFragment extends Fragment {
             String temp3 = pref.getString("contact_mobile"+i, "NULL");
             String temp4 = pref.getString("contact_add"+i, "NULL");
             String temp5 = pref.getString("contact_birth"+i, "NULL");
-            Contacts tmpContact = new Contacts(temp1, temp2, temp3, temp4, temp5);
+            int temp6 = i;
+            Contacts tmpContact = new Contacts(temp1, temp2, temp3, temp4, temp5,temp6);
             Contact.add(tmpContact);
         }
     }
-
 
 }
