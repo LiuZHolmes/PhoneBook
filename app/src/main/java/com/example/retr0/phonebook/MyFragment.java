@@ -116,21 +116,17 @@ public class MyFragment extends Fragment {
     public void readContacts()
     {
         Contact = new ArrayList<Contacts>();
-        InputStream inputStream = getResources().openRawResource(R.raw.rawcontact);
-        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-        BufferedReader reader = new BufferedReader(inputStreamReader);
-        String line;
-        try {
-            while ((line = reader.readLine()) != null)
-            {
-                String [] arr = line.split("\\s+");
-                Contacts tmpContact = new Contacts(arr[0], arr[1], arr[2], arr[3], arr[4]);
-                Contact.add(tmpContact);
-            }
-            inputStream.close();
-        } catch (IOException e)
+        int size=pref.getInt("size",0);
+
+        for(int i=0;i<size;i++)
         {
-            e.printStackTrace();
+            String temp1 = pref.getString("contact_name"+i, "NULL");
+            String temp2 = pref.getString("contact_home"+i, "NULL");
+            String temp3 = pref.getString("contact_mobile"+i, "NULL");
+            String temp4 = pref.getString("contact_add"+i, "NULL");
+            String temp5 = pref.getString("contact_birth"+i, "NULL");
+            Contacts tmpContact = new Contacts(temp1, temp2, temp3, temp4, temp5);
+            Contact.add(tmpContact);
         }
     }
 
