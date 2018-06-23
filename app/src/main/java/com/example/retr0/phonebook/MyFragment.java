@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -28,6 +29,7 @@ public class MyFragment extends Fragment {
 
     private String content;
 
+    private int[] s = new int[100];
     //call record issues
     private ListView recordListView, contactListView;
     private SearchView searchView;
@@ -47,12 +49,19 @@ public class MyFragment extends Fragment {
         View view = null;
         pref = getActivity().getSharedPreferences("ContactData", Context.MODE_PRIVATE);
         this.content = (String) getArguments().get("str");
+        int size=pref.getInt("size",0);
+
+        for(int i=0;i<size;i++) {
+            s[i] = pref.getInt("sort", i);
+        }
+        readContacts();
         if(content == getResources().getString(R.string.contact))
         {
             view = inflater.inflate(R.layout.contact_content,container,false);
             readContacts();
             findList=new ArrayList<Contacts>();
             searchView=view.findViewById(R.id.search_contact);
+
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextSubmit(String query) {
@@ -70,7 +79,15 @@ public class MyFragment extends Fragment {
                         for(int i = 0; i < Contact.size(); i++)
                         {
                             Contacts contact=Contact.get(i);
-                            if(contact.getName().contains(newText))
+                            if(contact.getName().toLowerCase().contains(newText.toLowerCase()))
+                            {
+                                findList.add(contact);
+                            }
+                            else if(contact.getHomeNumber().toLowerCase().contains(newText.toLowerCase()))
+                            {
+                                findList.add(contact);
+                            }
+                            else if(contact.getPhoneNumber().toLowerCase().contains(newText.toLowerCase()))
                             {
                                 findList.add(contact);
                             }
@@ -165,17 +182,56 @@ public class MyFragment extends Fragment {
         Contact = new ArrayList<Contacts>();
         int size=pref.getInt("size",0);
 
-        for(int i=0;i<size;i++)
-        {
-            String temp1 = pref.getString("contact_name"+i, "NULL");
-            String temp2 = pref.getString("contact_home"+i, "NULL");
-            String temp3 = pref.getString("contact_mobile"+i, "NULL");
-            String temp4 = pref.getString("contact_add"+i, "NULL");
-            String temp5 = pref.getString("contact_birth"+i, "NULL");
-            int temp6 = i;
-            Contacts tmpContact = new Contacts(temp1, temp2, temp3, temp4, temp5,temp6);
-            Contact.add(tmpContact);
+
+
+        if(UserInformation.isAdd || UserInformation2.isEdit) {
+
+            for(int i = 0; i < size; i++) {
+                for(int j = i+1; j < size; j++) {
+                    int com = pref.getString("contact_name"+i, "NULL").compareTo(pref.getString("contact_name"+j, "NULL"));
+                    if(com < 0) {
+                        int temp = s[j];
+                        s[j] = s[i];
+                        s[i] = temp;
+                    }
+                    else if(com == 0) {
+                        int com1 = pref.getString("contact_mobile"+i, "NULL").compareTo(pref.getString("contact_mobile"+j, "NULL"));
+                        if(com1 < 0) {
+                            int temp = s[j];
+                            s[j] = s[i];
+                            s[i] = temp;
+                        }
+                    }
+                }
+            }
+            UserInformation.isAdd = false;
+            UserInformation2.isEdit = false;
         }
+
+        editor = pref.edit();
+        for(int i = 0; i < size; i++) {
+            editor.putInt("size" + i, s[i]);
+        }
+        editor.apply();
+
+
+            for (int i = 0; i < size; i++) {
+                for(int j = 0; j < size; j++) {
+                    if(s[j] != size - i - 1)
+                        continue;
+                    else {
+                        String temp1 = pref.getString("contact_name" + j, "NULL");
+                        String temp2 = pref.getString("contact_home" + j, "NULL");
+                        String temp3 = pref.getString("contact_mobile" + j, "NULL");
+                        String temp4 = pref.getString("contact_add" + j, "NULL");
+                        String temp5 = pref.getString("contact_birth" + j, "NULL");
+                        int temp6 = j;
+                        Contacts tmpContact = new Contacts(temp1, temp2, temp3, temp4, temp5, temp6);
+                        Contact.add(tmpContact);
+                    }
+                }
+            }
+
     }
 
 }
