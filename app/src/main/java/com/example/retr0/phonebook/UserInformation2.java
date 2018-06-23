@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class UserInformation2 extends AppCompatActivity {
+    static boolean isEdit = false;
     private Button return_btn;
     private android.widget.Button ok_button;
     private int size;
@@ -92,6 +93,7 @@ public class UserInformation2 extends AppCompatActivity {
         editor.apply();
 
         DisplayToast(getResources().getString(R.string.add_succeed));
+        isEdit = true;
 
         Intent intent = new Intent();
         intent.setClass(UserInformation2.this,UserShowInformation.class);
