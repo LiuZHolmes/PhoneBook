@@ -1,6 +1,9 @@
 package com.example.retr0.phonebook;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,8 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by Mirai on 2018/6/21.
@@ -18,11 +25,16 @@ import java.util.List;
 public class MyRecordAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private List<CallRecord> mDatas;
+    private Context mContext;
+    private SharedPreferences pref;
+    private SharedPreferences.Editor editor;
 
     //MyAdapter需要一个Context，通过Context获得Layout.inflater，然后通过inflater加载item的布局
     public MyRecordAdapter(Context context, List<CallRecord> datas) {
         mInflater = LayoutInflater.from(context);
         mDatas = datas;
+        this.mContext = context;
+        pref = mContext.getSharedPreferences("ContactData", MODE_PRIVATE);
     }
 
     //返回数据集的长度
@@ -74,6 +86,28 @@ public class MyRecordAdapter extends BaseAdapter {
         {
             number.setTextColor(Color.BLACK);
         }
+        int contactIndex;
+        if((contactIndex = findMyContact(holder.number.getText().toString())) != -1)
+        {
+            number.setText(pref.getString("contact_name"+contactIndex,""));
+        }
+        else
+        {
+            number.setClickable(true);
+            number.setFocusable(true);
+            number.setOnLongClickListener(new View.OnLongClickListener(){
+                @Override
+                public boolean onLongClick(View v) {
+                    Intent intent =  new Intent(mContext,UserInformation.class);
+                    mContext.startActivity(intent);
+                    return true;
+                }
+            });
+        }
+
+
+
+
 
         return convertView;
     }
@@ -86,4 +120,19 @@ public class MyRecordAdapter extends BaseAdapter {
         TextView type;
         TextView location;
     }
+
+    private int findMyContact(String number)
+    {
+        int size =pref.getInt("size",0);
+        String tmp;
+        for(int i = 0;i < size;i++)
+        {
+            tmp = pref.getString("contact_mobile"+i,"");
+            if(tmp.equals(number))
+                return i;
+        }
+        return -1;
+    }
+
+
 }

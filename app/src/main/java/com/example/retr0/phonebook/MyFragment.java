@@ -30,7 +30,6 @@ public class MyFragment extends Fragment {
     private String content;
 
     private int[] s = new int[100];
-    //call record issues
     private ListView recordListView, contactListView;
     private SearchView searchView;
     private List<CallRecord> records;
@@ -55,8 +54,7 @@ public class MyFragment extends Fragment {
             s[i] = pref.getInt("sort", i);
         }
         readContacts();
-        if(content == getResources().getString(R.string.contact))
-        {
+        if(content == getResources().getString(R.string.contact)) {
             view = inflater.inflate(R.layout.contact_content,container,false);
             readContacts();
             findList=new ArrayList<Contacts>();
@@ -143,7 +141,6 @@ public class MyFragment extends Fragment {
         {
             view = inflater.inflate(R.layout.record_content,container,false);
             readRecords();
-            Log.d("mmznb","readOK");
             recordListView = (ListView) view.findViewById(R.id.recordListView);
             recordListView.setAdapter(new MyRecordAdapter(getActivity(), records));
 
@@ -177,6 +174,7 @@ public class MyFragment extends Fragment {
             e.printStackTrace();
         }
     }
+
     public void readContacts()
     {
         Contact = new ArrayList<Contacts>();
