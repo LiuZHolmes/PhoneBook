@@ -89,7 +89,7 @@ public class UserInformation2 extends AppCompatActivity {
         editor.putString("contactMobile",mobile);
         editor.putString("contactAdd",add);
         editor.putString("contactBirth",birth);
-        editor.putInt("contactSize" + num, num);
+        editor.putInt("contactSize", num);
         editor.apply();
 
         DisplayToast(getResources().getString(R.string.add_succeed));

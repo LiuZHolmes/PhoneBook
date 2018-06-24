@@ -56,7 +56,7 @@ public class UserInformation extends AppCompatActivity {
         editor.putString("contact_add"+size,add);
         editor.putString("contact_birth"+size,birth);
         editor.putInt("size",size+1);
-        editor.putInt("contact_size",size);
+        editor.putInt("contact_size"+size,size);
         editor.putString("contactName",name);
         editor.putString("contactHome",home);
         editor.putString("contactMobile",mobile);
