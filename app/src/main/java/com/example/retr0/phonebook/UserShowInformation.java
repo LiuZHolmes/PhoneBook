@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class UserShowInformation extends AppCompatActivity {
     static List<String> name, birth, mobile, add, home;
     static int nowSize;

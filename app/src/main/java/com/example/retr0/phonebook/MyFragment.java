@@ -49,6 +49,8 @@ public class MyFragment extends Fragment {
     }
 
 
+
+
     // 自定义fragment的绘制，根据点击事件传入的消息，绘制不同的页面
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
