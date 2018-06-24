@@ -21,15 +21,22 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.text.Collator;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 
 public class MyFragment extends Fragment {
 
+    private final static Comparator<Object> CHINA_COMPARE = Collator.getInstance(java.util.Locale.CHINA);
+
+
     private String content;
 
     private int[] s = new int[100];
+    //call record issues
     private ListView recordListView, contactListView;
     private SearchView searchView;
     private List<CallRecord> records;
@@ -42,6 +49,8 @@ public class MyFragment extends Fragment {
     }
 
 
+
+
     // 自定义fragment的绘制，根据点击事件传入的消息，绘制不同的页面
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,10 +60,26 @@ public class MyFragment extends Fragment {
         int size=pref.getInt("size",0);
 
         for(int i=0;i<size;i++) {
-            s[i] = pref.getInt("sort", i);
+            s[i] = pref.getInt("sort"+ i, i);
         }
-        readContacts();
-        if(content == getResources().getString(R.string.contact)) {
+        if(UserShowInformation.isdelete && UserShowInformation.notzero) {
+            size=UserShowInformation.nowSize;
+            editor = pref.edit();
+            editor.putInt("size", size);
+            for(int i = 0; i < size; i++) {
+                editor.putString("contact_name"+i,UserShowInformation.name.get(i));
+                editor.putString("contact_home"+i,UserShowInformation.home.get(i));
+                editor.putString("contact_mobile"+i,UserShowInformation.mobile.get(i));
+                editor.putString("contact_add"+i,UserShowInformation.add.get(i));
+                editor.putString("contact_birth"+i,UserShowInformation.birth.get(i));
+                editor.putInt("contact_size"+ i,i);
+            }
+
+            editor.apply();
+        }
+        //readContacts();
+        if(content == getResources().getString(R.string.contact))
+        {
             view = inflater.inflate(R.layout.contact_content,container,false);
             readContacts();
             findList=new ArrayList<Contacts>();
@@ -141,6 +166,7 @@ public class MyFragment extends Fragment {
         {
             view = inflater.inflate(R.layout.record_content,container,false);
             readRecords();
+            Log.d("mmznb","readOK");
             recordListView = (ListView) view.findViewById(R.id.recordListView);
             recordListView.setAdapter(new MyRecordAdapter(getActivity(), records));
 
@@ -174,61 +200,54 @@ public class MyFragment extends Fragment {
             e.printStackTrace();
         }
     }
-
     public void readContacts()
     {
         Contact = new ArrayList<Contacts>();
         int size=pref.getInt("size",0);
 
 
+        List<String> n = new ArrayList<String>();
+        for(int i = 0; i < size; i++) {
+            n.add(pref.getString("contact_name"+i, "NULL"));
+        }
 
-        if(UserInformation.isAdd || UserInformation2.isEdit) {
-
-            for(int i = 0; i < size; i++) {
-                for(int j = i+1; j < size; j++) {
-                    int com = pref.getString("contact_name"+i, "NULL").compareTo(pref.getString("contact_name"+j, "NULL"));
-                    if(com < 0) {
-                        int temp = s[j];
-                        s[j] = s[i];
-                        s[i] = temp;
-                    }
-                    else if(com == 0) {
-                        int com1 = pref.getString("contact_mobile"+i, "NULL").compareTo(pref.getString("contact_mobile"+j, "NULL"));
-                        if(com1 < 0) {
-                            int temp = s[j];
-                            s[j] = s[i];
-                            s[i] = temp;
-                        }
+        if(UserInformation.isAdd || UserInformation2.isEdit || UserShowInformation.isdelete) {
+            Collections.sort(n, CHINA_COMPARE);
+            for(int i = 0; i <size; i++) {
+                for(int j = 0; j < size; j++) {
+                    if(pref.getString("contact_name" + i, "NULL").equals(n.get(j))) {
+                        s[j] = i;
+                        break;
                     }
                 }
             }
             UserInformation.isAdd = false;
             UserInformation2.isEdit = false;
+            UserShowInformation.isdelete = false;
+            System.out.println(n);
         }
+
 
         editor = pref.edit();
         for(int i = 0; i < size; i++) {
-            editor.putInt("size" + i, s[i]);
+            editor.putInt("sort" + i, s[i]);
+            Log.d("", String.valueOf(s[i]));
         }
         editor.apply();
 
 
-            for (int i = 0; i < size; i++) {
-                for(int j = 0; j < size; j++) {
-                    if(s[j] != size - i - 1)
-                        continue;
-                    else {
-                        String temp1 = pref.getString("contact_name" + j, "NULL");
-                        String temp2 = pref.getString("contact_home" + j, "NULL");
-                        String temp3 = pref.getString("contact_mobile" + j, "NULL");
-                        String temp4 = pref.getString("contact_add" + j, "NULL");
-                        String temp5 = pref.getString("contact_birth" + j, "NULL");
-                        int temp6 = j;
-                        Contacts tmpContact = new Contacts(temp1, temp2, temp3, temp4, temp5, temp6);
-                        Contact.add(tmpContact);
-                    }
-                }
-            }
+        for (int i = 0; i < size; i++) {
+
+            String temp1 = pref.getString("contact_name" + s[i], "NULL");
+            String temp2 = pref.getString("contact_home" + s[i], "NULL");
+            String temp3 = pref.getString("contact_mobile" + s[i], "NULL");
+            String temp4 = pref.getString("contact_add" + s[i], "NULL");
+            String temp5 = pref.getString("contact_birth" + s[i], "NULL");
+            int temp6 = s[i];
+            Contacts tmpContact = new Contacts(temp1, temp2, temp3, temp4, temp5, temp6);
+            Contact.add(tmpContact);
+
+        }
 
     }
 

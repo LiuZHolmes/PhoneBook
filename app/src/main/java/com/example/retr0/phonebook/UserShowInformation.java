@@ -4,11 +4,19 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class UserShowInformation extends AppCompatActivity {
+    static List<String> name, birth, mobile, add, home;
+    static int nowSize;
+    static boolean isdelete, notzero;
     private Button return_btn;
     private Button ok_button;
     private int size;
@@ -54,7 +62,7 @@ public class UserShowInformation extends AppCompatActivity {
         startActivity(intent);
     }
     public void check_delete(View view) {
-        int num = pref.getInt("contactSize", 0);
+        /*int num = pref.getInt("contactSize", 0);
         editor = pref.edit();
         editor.remove("contact_home" + num);
         editor.remove("contact_name" + num);
@@ -65,6 +73,43 @@ public class UserShowInformation extends AppCompatActivity {
         num = pref.getInt("size", 0);
         //editor.putInt("size", num - 1);
         editor.apply();
+
+        */
+
+
+        isdelete = true;
+        editor = pref.edit();
+        int num = pref.getInt("contactSize", 0);
+        name= new ArrayList<String>();
+        mobile= new ArrayList<String>();
+        home= new ArrayList<String>();
+        add= new ArrayList<String>();
+        birth = new ArrayList<String>();
+
+        nowSize = size - 1;
+        if(nowSize == 0) {
+            editor.clear();
+            editor.apply();
+        }
+        else {
+
+            notzero = true;
+            for (int i = 0; i < size; i++) {
+                if (i != num) {
+                    name.add(pref.getString("contact_name" + i, "NULL"));
+                    mobile.add(pref.getString("contact_home" + i, "NULL"));
+                    home.add(pref.getString("contact_mobile" + i, "NULL"));
+                    add.add(pref.getString("contact_add" + i, "NULL"));
+                    birth.add(pref.getString("contact_birth" + i, "NULL"));
+
+                }
+            }
+
+            editor.clear();
+            editor.apply();
+        }
+
+
 
         Intent intent = new Intent();
         intent.setClass(UserShowInformation.this,MainActivity.class);
