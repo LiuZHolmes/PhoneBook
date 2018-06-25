@@ -51,8 +51,6 @@ public class MyFragment extends Fragment  implements  WordsNavigation.onWordsCha
     }
 
 
-
-
     // 自定义fragment的绘制，根据点击事件传入的消息，绘制不同的页面
     @Override
     public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -60,7 +58,7 @@ public class MyFragment extends Fragment  implements  WordsNavigation.onWordsCha
         pref = getActivity().getSharedPreferences("ContactData", Context.MODE_PRIVATE);
         this.content = (String) getArguments().get("str");
         int size=pref.getInt("size",0);
-
+        Contact=new ArrayList<>();
         for(int i=0;i<size;i++) {
             s[i] = pref.getInt("sort"+ i, i);
         }
@@ -79,7 +77,7 @@ public class MyFragment extends Fragment  implements  WordsNavigation.onWordsCha
 
             editor.apply();
         }
-        //readContacts();
+
         if(content == getResources().getString(R.string.contact))
         {
             view = inflater.inflate(R.layout.contact_content,container,false);
@@ -138,9 +136,12 @@ public class MyFragment extends Fragment  implements  WordsNavigation.onWordsCha
             contactListView = (ListView)view.findViewById(R.id.contactListView);
             contactListView.setAdapter(new MyContactsAdapter(getActivity(),Contact));
 
-            contactListView.setOnScrollListener(this);
-            handler = new Handler();
-            word.setOnWordsChangeListener(this);
+            if(Contact.size()>0)
+            {
+                contactListView.setOnScrollListener(this);
+                handler = new Handler();
+                word.setOnWordsChangeListener(this);
+            }
 
             contactListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -200,6 +201,7 @@ public class MyFragment extends Fragment  implements  WordsNavigation.onWordsCha
     }
 
     private void updateListView(String words) {
+
         for (int i = 0; i < Contact.size(); i++) {
             String headerWord = Contact.get(i).getHeaderWord();
             //将手指按下的字母与列表中相同字母开头的项找出来
@@ -273,6 +275,7 @@ public class MyFragment extends Fragment  implements  WordsNavigation.onWordsCha
         editor.apply();
 
 
+
         for (int i = 0; i < size; i++) {
 
             String temp1 = pref.getString("contact_name" + s[i], "NULL");
@@ -285,6 +288,7 @@ public class MyFragment extends Fragment  implements  WordsNavigation.onWordsCha
             Contact.add(tmpContact);
 
         }
+
 
     }
 
