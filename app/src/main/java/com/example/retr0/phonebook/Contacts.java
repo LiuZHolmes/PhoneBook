@@ -8,6 +8,7 @@ public class Contacts {
     private String Name;
     private String HomeNumber;
     private String PhoneNumber;
+    private String headerWord; //拼音首字母
     private String Address;
     private String Birthday;
     private int Num;
@@ -19,10 +20,13 @@ public class Contacts {
         this.Address = Address;
         this.Birthday = Birthday;
         this.Num = Num;
+        headerWord = Name.substring(0, 1).toUpperCase();
     }
     public String getName() {
         return Name;
     }
+
+    public String getHeaderWord() {return headerWord;}
 
     public String getHomeNumber() {
         return HomeNumber;

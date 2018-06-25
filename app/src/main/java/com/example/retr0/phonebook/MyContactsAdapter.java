@@ -47,7 +47,7 @@ public class MyContactsAdapter extends BaseAdapter {
             convertView = mInflater.inflate(R.layout.contact_listview, parent, false); //加载布局
             holder = new  MyContactsAdapter.ViewHolder();
             holder.name = (TextView) convertView.findViewById(R.id.contact_name);
-
+            holder.phone = (TextView) convertView.findViewById(R.id.contact_phone);
             convertView.setTag(holder);
         } else {   //else里面说明，convertView已经被复用了，说明convertView中已经设置过tag了，即holder
             holder = (MyContactsAdapter.ViewHolder) convertView.getTag();
@@ -55,7 +55,7 @@ public class MyContactsAdapter extends BaseAdapter {
 
         Contacts Con = mDatas.get(position);
         holder.name.setText(Con.getName());
-
+        holder.phone.setText(Con.getPhoneNumber());
 
         return convertView;
     }
@@ -63,6 +63,6 @@ public class MyContactsAdapter extends BaseAdapter {
     //这个ViewHolder只能服务于当前这个特定的adapter，因为ViewHolder里会指定item的控件，不同的ListView，item可能不同，所以ViewHolder写成一个私有的类
     private class ViewHolder {
         TextView name;
-
+        TextView phone;
     }
 }
