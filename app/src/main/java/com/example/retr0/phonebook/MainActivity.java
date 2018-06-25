@@ -3,23 +3,18 @@ package com.example.retr0.phonebook;
 import android.annotation.SuppressLint;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
@@ -37,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //Fragment Object
     private MyFragment fg1,fg2,fg3;
     private FragmentManager fManager;
-
+    private SharedPreferences pref;
     private WordsNavigation word;
 
 
@@ -46,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
+        pref = getSharedPreferences("ContactData", Context.MODE_PRIVATE);
         fManager = getFragmentManager();
         bindViews();
         txt_contact.performClick();   //模拟一次点击，即进去后选择第一项
@@ -141,14 +137,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent = new Intent();
         intent.setClass(MainActivity.this,UserInformation.class);
         startActivity(intent);
-    }
-
-    public boolean onQueryTextSubmit(String query) {
-        if(TextUtils.isEmpty(query)) {
-            Toast.makeText(this, " ", Toast.LENGTH_SHORT);
-
-        }
-        return true;
     }
 
 
