@@ -1,16 +1,20 @@
 package com.example.retr0.phonebook;
 
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.design.widget.NavigationView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -28,7 +32,8 @@ import java.util.Comparator;
 import java.util.List;
 
 
-public class MyFragment extends Fragment {
+public class MyFragment extends Fragment  implements  WordsNavigation.onWordsChangeListener,
+        AbsListView.OnScrollListener  {
 
     private final static Comparator<Object> CHINA_COMPARE = Collator.getInstance(java.util.Locale.CHINA);
 
@@ -44,7 +49,8 @@ public class MyFragment extends Fragment {
     private MyContactsAdapter mAdapter;
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
-
+    private WordsNavigation word;
+    private Handler handler;
     public MyFragment() {
     }
 
@@ -53,7 +59,7 @@ public class MyFragment extends Fragment {
 
     // 自定义fragment的绘制，根据点击事件传入的消息，绘制不同的页面
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = null;
         pref = getActivity().getSharedPreferences("ContactData", Context.MODE_PRIVATE);
         this.content = (String) getArguments().get("str");
@@ -84,6 +90,8 @@ public class MyFragment extends Fragment {
             readContacts();
             findList=new ArrayList<Contacts>();
             searchView=view.findViewById(R.id.search_contact);
+
+            word = (WordsNavigation) view.findViewById(R.id.words);
 
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
@@ -133,6 +141,11 @@ public class MyFragment extends Fragment {
 
             contactListView = (ListView)view.findViewById(R.id.contactListView);
             contactListView.setAdapter(new MyContactsAdapter(getActivity(),Contact));
+
+            contactListView.setOnScrollListener(this);
+            handler = new Handler();
+            word.setOnWordsChangeListener(this);
+
             contactListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -179,6 +192,34 @@ public class MyFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+    }
+
+    @Override
+    public void wordsChange(String words) {
+            //更新字母
+        updateListView(words);  //更新列表
+    }
+
+    private void updateListView(String words) {
+        for (int i = 0; i < Contact.size(); i++) {
+            String headerWord = Contact.get(i).getHeaderWord();
+            //将手指按下的字母与列表中相同字母开头的项找出来
+            if (words.equals(headerWord)) {
+                //将列表选中哪一个
+                contactListView.setSelection(i);
+                //找到开头的一个即可
+                return;
+            }
+        }
+    }
+    @Override
+    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+        //当滑动列表的时候，更新右侧字母列表的选中状态
+        word.setTouchIndex(Contact.get(firstVisibleItem).getHeaderWord());
+    }
 
     public void readRecords()
     {
