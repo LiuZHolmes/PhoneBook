@@ -97,8 +97,8 @@ public class UserShowInformation extends AppCompatActivity {
             for (int i = 0; i < size; i++) {
                 if (i != num) {
                     name.add(pref.getString("contact_name" + i, "NULL"));
-                    mobile.add(pref.getString("contact_home" + i, "NULL"));
-                    home.add(pref.getString("contact_mobile" + i, "NULL"));
+                    mobile.add(pref.getString("contact_mobile" + i, "NULL"));
+                    home.add(pref.getString("contact_home" + i, "NULL"));
                     add.add(pref.getString("contact_add" + i, "NULL"));
                     birth.add(pref.getString("contact_birth" + i, "NULL"));
 
