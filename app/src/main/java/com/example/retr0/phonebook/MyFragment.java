@@ -38,6 +38,9 @@ public class MyFragment extends Fragment  implements  WordsNavigation.onWordsCha
     private final static Comparator<Object> CHINA_COMPARE = Collator.getInstance(java.util.Locale.CHINA);
 
 
+    private final static Comparator<Object> CHINA_COMPARE = Collator.getInstance(java.util.Locale.CHINA);
+
+
     private String content;
 
     private int[] s = new int[100];
@@ -277,6 +280,7 @@ public class MyFragment extends Fragment  implements  WordsNavigation.onWordsCha
         editor.apply();
 
 
+
         for (int i = 0; i < size; i++) {
 
             String temp1 = pref.getString("contact_name" + s[i], "NULL");
@@ -289,6 +293,7 @@ public class MyFragment extends Fragment  implements  WordsNavigation.onWordsCha
             Contact.add(tmpContact);
 
         }
+
 
     }
 
