@@ -1,14 +1,12 @@
 package com.example.retr0.phonebook;
 
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.NavigationView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,13 +16,11 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -291,5 +287,6 @@ public class MyFragment extends Fragment  implements  WordsNavigation.onWordsCha
         }
 
     }
+
 
 }
