@@ -66,6 +66,19 @@
         android:layout_gravity="right"
         android:layout_weight="1" />
 
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        android:layout_centerVertical="true"
+        android:layout_below="@id/search_contact"
+        android:layout_toLeftOf="@id/words"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:textColor="#ffffff"
+        android:textSize="20sp"
+        android:visibility="gone" />
+
     <Button
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
