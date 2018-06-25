@@ -16,7 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UserInformation"></activity>
+        <activity android:name=".UserInformation" />
+        <activity android:name=".UserShowInformation" />
+        <activity android:name=".UserInformation2"></activity>
     </application>
 
 </manifest>
