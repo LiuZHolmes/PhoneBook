@@ -18,7 +18,7 @@
         android:fontFamily="sans-serif"
         android:gravity="bottom"
         android:text="@string/contact"
-        android:textAlignment="textStart"
+
         android:textColor="@color/text_black"
         android:textSize="36sp"
         android:typeface="sans" />
@@ -26,7 +26,7 @@
     <SearchView
         android:id="@+id/search_contact"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:layout_alignEnd="@+id/textView"
         android:layout_below="@+id/floatingActionButton"
         android:layout_marginHorizontal="5dp"
@@ -39,6 +39,20 @@
         tools:ignore="MissingPrefix">
 
     </SearchView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_marginVertical="35dp"
+        android:layout_alignTop="@id/search_contact"
+        android:background="@color/div_white"
+        android:id="@+id/view3" />
+
+    <ListView
+        android:id="@+id/contactListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/search_contact">
+    </ListView>
 
     <TextView
         android:id="@+id/txt_contact_content"
@@ -48,16 +62,9 @@
         android:layout_alignParentTop="true"
         android:layout_weight="30"
         android:gravity="center"
-        android:text="@string/contact"
         android:textColor="@color/text_black"
         android:textSize="20sp" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2px"
-        android:layout_alignParentBottom="true"
-        android:background="@color/div_white"
-        android:id="@+id/view3" />
 
     <com.example.retr0.phonebook.WordsNavigation
         android:id="@+id/words"

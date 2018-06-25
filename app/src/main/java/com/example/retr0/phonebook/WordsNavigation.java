@@ -1,5 +1,6 @@
 package com.example.retr0.phonebook;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -29,7 +30,7 @@ public class WordsNavigation extends View {
     private int itemHeight;
     /*手指按下的字母索引*/
     private int touchIndex = 0;
-
+    private onWordsChangeListener listener;
 
     private TextView textView;
 
@@ -50,16 +51,17 @@ public class WordsNavigation extends View {
     /**
      * 初始化画笔
      */
+    @SuppressLint("ResourceType")
     private void init() {
         wordsPaint = new Paint();
-        wordsPaint.setColor(Color.parseColor("#F7F7F7"));
+        wordsPaint.setColor(Color.parseColor(getResources().getString(R.color.bg_wordnavi)));
         wordsPaint.setAntiAlias(true);
         wordsPaint.setTextSize(40);
         wordsPaint.setTypeface(Typeface.DEFAULT_BOLD);
 
         bgPaint = new Paint();
         bgPaint.setAntiAlias(true);
-        bgPaint.setColor(Color.parseColor("#1dcdef"));
+        bgPaint.setColor(Color.parseColor(getResources().getString(R.color.google_blue)));
     }
 
     @Override
@@ -108,6 +110,10 @@ public class WordsNavigation extends View {
                 if (index != touchIndex)
                     touchIndex = index;
                 //防止数组越界
+                if (listener != null && 0 <= touchIndex && touchIndex <= words.length - 1) {
+                    //回调按下的字母
+                    listener.wordsChange(words[touchIndex]);
+                }
                 invalidate();
                 break;
             case MotionEvent.ACTION_UP:
@@ -117,9 +123,31 @@ public class WordsNavigation extends View {
         return true;
     }
 
+    /**
+     * 设置当前按下的是那个字母
+     * @param word
+     */
+    public void setTouchIndex(String word) {
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].equals(word)) {
+                touchIndex = i;
+                invalidate();
+                return;
+            }
+        }
+    }
 
+    /**
+     * 手指按下了哪个字母的回调接口
+     */
+    public interface onWordsChangeListener {
+        void wordsChange(String words);
+    }
 
-
+    /*设置手指按下字母改变监听*/
+    public void setOnWordsChangeListener(onWordsChangeListener listener) {
+        this.listener = listener;
+    }
 
 
 }

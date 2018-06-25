@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -17,6 +18,8 @@ import android.widget.FrameLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
@@ -36,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private FragmentManager fManager;
 
     private WordsNavigation word;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         txt_statistic = (TextView) findViewById(R.id.txt_statistic);
         ly_content = (FrameLayout) findViewById(R.id.ly_content);
 
-        switch_unpick = (Switch)LayoutInflater.from(MainActivity.this).inflate(R.layout.record_content, null).findViewById(R.id.switch_unpick);
+        //switch_unpick = (Switch)LayoutInflater.from(MainActivity.this).inflate(R.layout.record_content, null).findViewById(R.id.switch_unpick);
         add_user_button =(Button)findViewById(R.id.floatingActionButton);
         word = (WordsNavigation) LayoutInflater.from(MainActivity.this).inflate(R.layout.contact_content, null).findViewById(R.id.words);
 
@@ -96,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if(fg1 == null){
                     fg1 = new MyFragment();
                     Bundle bundle = new Bundle();
-                    bundle.putString("str","联系人");
+                    bundle.putString("str",getResources().getString(R.string.contact));
                     fg1.setArguments(bundle);
                     fTransaction.add(R.id.ly_content,fg1);
                 }else{
@@ -109,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if(fg2 == null){
                     fg2 = new MyFragment();
                     Bundle bundle = new Bundle();
-                    bundle.putString("str","通话记录");
+                    bundle.putString("str",getResources().getString(R.string.record));
                     fg2.setArguments(bundle);
                     fTransaction.add(R.id.ly_content,fg2);
                 }else{
@@ -122,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if(fg3 == null){
                     fg3 = new MyFragment();
                     Bundle bundle = new Bundle();
-                    bundle.putString("str","统计");
+                    bundle.putString("str",getResources().getString(R.string.statistic));
                     fg3.setArguments(bundle);
                     fTransaction.add(R.id.ly_content,fg3);
                 }else{
@@ -138,5 +142,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         intent.setClass(MainActivity.this,UserInformation.class);
         startActivity(intent);
     }
+
+    public boolean onQueryTextSubmit(String query) {
+        if(TextUtils.isEmpty(query)) {
+            Toast.makeText(this, " ", Toast.LENGTH_SHORT);
+
+        }
+        return true;
+    }
+
 
 }
