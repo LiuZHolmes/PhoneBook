@@ -16,6 +16,7 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -47,6 +48,7 @@ public class MyFragment extends Fragment  implements  WordsNavigation.onWordsCha
     private SharedPreferences.Editor editor;
     private WordsNavigation word;
     private Handler handler;
+    private TextView tv;
     public MyFragment() {
     }
 
@@ -84,8 +86,9 @@ public class MyFragment extends Fragment  implements  WordsNavigation.onWordsCha
             readContacts();
             findList=new ArrayList<Contacts>();
             searchView=view.findViewById(R.id.search_contact);
-
+            tv = (TextView) view.findViewById(R.id.tv);
             word = (WordsNavigation) view.findViewById(R.id.words);
+            contactListView = (ListView)view.findViewById(R.id.contactListView);
 
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
@@ -133,7 +136,7 @@ public class MyFragment extends Fragment  implements  WordsNavigation.onWordsCha
                 }
             });
 
-            contactListView = (ListView)view.findViewById(R.id.contactListView);
+
             contactListView.setAdapter(new MyContactsAdapter(getActivity(),Contact));
 
             if(Contact.size()>0)
@@ -196,8 +199,22 @@ public class MyFragment extends Fragment  implements  WordsNavigation.onWordsCha
 
     @Override
     public void wordsChange(String words) {
-            //更新字母
+        updateWord(words);//更新字母
         updateListView(words);  //更新列表
+    }
+
+    private void updateWord(String words) {
+        tv.setText(words);
+        tv.setVisibility(View.VISIBLE);
+        //清空之前的所有消息
+        handler.removeCallbacksAndMessages(null);
+        //1s后让tv隐藏
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                tv.setVisibility(View.GONE);
+            }
+        }, 500);//绘制的画面停留0.5s
     }
 
     private void updateListView(String words) {
