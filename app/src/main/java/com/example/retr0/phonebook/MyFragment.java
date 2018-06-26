@@ -1,14 +1,12 @@
 package com.example.retr0.phonebook;
 
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.NavigationView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,7 +22,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -51,10 +48,9 @@ public class MyFragment extends Fragment  implements  WordsNavigation.onWordsCha
     private SharedPreferences.Editor editor;
     private WordsNavigation word;
     private Handler handler;
+    private TextView tv;
     public MyFragment() {
     }
-
-
 
 
     // 自定义fragment的绘制，根据点击事件传入的消息，绘制不同的页面
@@ -64,7 +60,7 @@ public class MyFragment extends Fragment  implements  WordsNavigation.onWordsCha
         pref = getActivity().getSharedPreferences("ContactData", Context.MODE_PRIVATE);
         this.content = (String) getArguments().get("str");
         int size=pref.getInt("size",0);
-
+        Contact=new ArrayList<>();
         for(int i=0;i<size;i++) {
             s[i] = pref.getInt("sort"+ i, i);
         }
@@ -83,15 +79,16 @@ public class MyFragment extends Fragment  implements  WordsNavigation.onWordsCha
 
             editor.apply();
         }
-        //readContacts();
+
         if(content == getResources().getString(R.string.contact))
         {
             view = inflater.inflate(R.layout.contact_content,container,false);
             readContacts();
             findList=new ArrayList<Contacts>();
             searchView=view.findViewById(R.id.search_contact);
-
+            tv = (TextView) view.findViewById(R.id.tv);
             word = (WordsNavigation) view.findViewById(R.id.words);
+            contactListView = (ListView)view.findViewById(R.id.contactListView);
 
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
@@ -139,12 +136,15 @@ public class MyFragment extends Fragment  implements  WordsNavigation.onWordsCha
                 }
             });
 
-            contactListView = (ListView)view.findViewById(R.id.contactListView);
+
             contactListView.setAdapter(new MyContactsAdapter(getActivity(),Contact));
 
-            contactListView.setOnScrollListener(this);
-            handler = new Handler();
-            word.setOnWordsChangeListener(this);
+            if(Contact.size()>0)
+            {
+                contactListView.setOnScrollListener(this);
+                handler = new Handler();
+                word.setOnWordsChangeListener(this);
+            }
 
             contactListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -199,11 +199,26 @@ public class MyFragment extends Fragment  implements  WordsNavigation.onWordsCha
 
     @Override
     public void wordsChange(String words) {
-            //更新字母
+        updateWord(words);//更新字母
         updateListView(words);  //更新列表
     }
 
+    private void updateWord(String words) {
+        tv.setText(words);
+        tv.setVisibility(View.VISIBLE);
+        //清空之前的所有消息
+        handler.removeCallbacksAndMessages(null);
+        //1s后让tv隐藏
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                tv.setVisibility(View.GONE);
+            }
+        }, 500);//绘制的画面停留0.5s
+    }
+
     private void updateListView(String words) {
+
         for (int i = 0; i < Contact.size(); i++) {
             String headerWord = Contact.get(i).getHeaderWord();
             //将手指按下的字母与列表中相同字母开头的项找出来
@@ -277,6 +292,7 @@ public class MyFragment extends Fragment  implements  WordsNavigation.onWordsCha
         editor.apply();
 
 
+
         for (int i = 0; i < size; i++) {
 
             String temp1 = pref.getString("contact_name" + s[i], "NULL");
@@ -290,6 +306,8 @@ public class MyFragment extends Fragment  implements  WordsNavigation.onWordsCha
 
         }
 
+
     }
+
 
 }

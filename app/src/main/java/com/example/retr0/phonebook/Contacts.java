@@ -3,7 +3,6 @@ package com.example.retr0.phonebook;
 /**
  * Created by Shunchao on 2018/6/20.
  */
-
 public class Contacts {
     private String Name;
     private String HomeNumber;
@@ -20,7 +19,7 @@ public class Contacts {
         this.Address = Address;
         this.Birthday = Birthday;
         this.Num = Num;
-        headerWord = Name.substring(0, 1).toUpperCase();
+        headerWord = PinYinUtils.getPinyin(Name).substring(0, 1);
     }
     public String getName() {
         return Name;
@@ -67,4 +66,6 @@ public class Contacts {
     }
 
     public void setNum(int i) { Num = i; }
+
+
 }
