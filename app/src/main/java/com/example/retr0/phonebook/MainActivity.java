@@ -33,8 +33,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private MyFragment fg1,fg2,fg3;
     private FragmentManager fManager;
     private SharedPreferences pref;
+    private SharedPreferences.Editor editor;
     private WordsNavigation word;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
         pref = getSharedPreferences("ContactData", Context.MODE_PRIVATE);
+
         fManager = getFragmentManager();
         bindViews();
         txt_contact.performClick();   //模拟一次点击，即进去后选择第一项
