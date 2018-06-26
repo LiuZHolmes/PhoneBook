@@ -46,6 +46,15 @@ public class UserInformation extends AppCompatActivity {
         etAdd=findViewById(R.id.edit_add);
         etBirth=findViewById(R.id.edit_birth);
 
+        //mll修改的添加联系人号码自动填充
+        String new_number = null;
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            new_number = extras.getString("new_number");
+        }
+        etMobile.setText(new_number);
+        //
+
 
         //监听事件
         etBirth.setOnClickListener(new View.OnClickListener() {

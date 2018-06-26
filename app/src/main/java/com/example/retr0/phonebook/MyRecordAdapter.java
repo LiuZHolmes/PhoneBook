@@ -78,7 +78,7 @@ public class MyRecordAdapter extends BaseAdapter {
         holder.location.setText(cr.getLocation());
 
         TextView number = (TextView) convertView.findViewById(R.id.number);
-        if(holder.type.getText().equals("Missed"))
+        if(holder.type.getText().equals("未接来电"))
         {
             number.setTextColor(Color.RED);
         }
@@ -87,20 +87,21 @@ public class MyRecordAdapter extends BaseAdapter {
             number.setTextColor(Color.BLACK);
         }
         int contactIndex;
+        final String newNumber = holder.number.getText().toString();
         if((contactIndex = findMyContact(holder.number.getText().toString())) != -1)
         {
             number.setText(pref.getString("contact_name"+contactIndex,""));
         }
         else
         {
-            number.setClickable(true);
-            number.setFocusable(true);
-            number.setOnLongClickListener(new View.OnLongClickListener(){
+            //number.setClickable(true);
+            //number.setFocusable(true);
+            convertView.setOnClickListener(new View.OnClickListener(){
                 @Override
-                public boolean onLongClick(View v) {
+                public void onClick(View v) {
                     Intent intent =  new Intent(mContext,UserInformation.class);
+                    intent.putExtra("new_number", newNumber);
                     mContext.startActivity(intent);
-                    return true;
                 }
             });
         }
