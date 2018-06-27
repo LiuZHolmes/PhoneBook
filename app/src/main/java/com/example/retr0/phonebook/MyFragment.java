@@ -264,14 +264,27 @@ public class MyFragment extends Fragment  implements  WordsNavigation.onWordsCha
 
         List<String> n = new ArrayList<String>();
         for(int i = 0; i < size; i++) {
-            n.add(pref.getString("contact_name"+i, "NULL"));
+            String tmp=pref.getString("contact_name"+i, "NULL");
+            String alphabet = tmp.substring(0, 1);
+            if (alphabet.matches("[\\u4e00-\\u9fa5]+")) {
+                tmp = PinYinUtils.getPinyin(tmp) + "&" + tmp;
+            }
+            tmp = tmp.toUpperCase();
+            n.add(tmp);
+
         }
 
         if(UserInformation.isAdd || UserInformation2.isEdit || UserShowInformation.isdelete) {
             Collections.sort(n, CHINA_COMPARE);
             for(int i = 0; i <size; i++) {
                 for(int j = 0; j < size; j++) {
-                    if(pref.getString("contact_name" + i, "NULL").equals(n.get(j))) {
+                    String tmp=pref.getString("contact_name"+i, "NULL");
+                    String alphabet = tmp.substring(0, 1);
+                    if (alphabet.matches("[\\u4e00-\\u9fa5]+")) {
+                        tmp = PinYinUtils.getPinyin(tmp) + "&" + tmp;
+                    }
+                    tmp = tmp.toUpperCase();
+                    if(tmp.equals(n.get(j))) {
                         s[j] = i;
                         break;
                     }
