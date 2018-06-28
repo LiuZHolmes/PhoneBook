@@ -74,7 +74,10 @@ public class MyRecordAdapter extends BaseAdapter {
         holder.number.setText(cr.getNumber());
         holder.date.setText(cr.getDate());
         holder.time.setText(cr.getTime());
-        holder.type.setText(cr.getType());
+        if(!cr.getDuration().equals("0"))
+            holder.type.setText(cr.getType() + cr.getDuration());
+        else
+            holder.type.setText(cr.getType());
         holder.location.setText(cr.getLocation());
 
         TextView number = (TextView) convertView.findViewById(R.id.number);
