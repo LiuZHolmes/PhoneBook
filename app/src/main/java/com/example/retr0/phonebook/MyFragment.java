@@ -247,7 +247,7 @@ public class MyFragment extends Fragment  implements  WordsNavigation.onWordsCha
             while ((line = reader.readLine()) != null)
             {
                 String [] arr = line.split("\\s+");
-                CallRecord tmpRecord = new CallRecord(arr[0], arr[1], arr[2], arr[3], arr[4]);
+                CallRecord tmpRecord = new CallRecord(arr[0], arr[1], arr[2], arr[3], arr[4], arr[5]);
                 records.add(tmpRecord);
             }
             inputStream.close();
