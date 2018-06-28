@@ -10,18 +10,21 @@ public class CallRecord {
     private String date;
     private String time;
     private String type;
+    private String duration;
     private String location;
-    CallRecord(String number, String date, String time, String type, String location)
+    CallRecord(String number, String date, String time, String duration, String type, String location)
     {
         this.number = number;
         this.date = date;
         this.time = time;
         this.type = type;
+        this.duration = duration;
         this.location = location;
     }
     public String getNumber(){return this.number;}
     public String getDate(){return this.date;}
     public String getTime(){return this.time;}
     public String getType(){return this.type;}
+    public String getDuration(){return this.duration;}
     public String getLocation(){return this.location;}
 }
