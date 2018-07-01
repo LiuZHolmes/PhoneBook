@@ -10,6 +10,8 @@ public class Contacts {
     private String headerWord; //拼音首字母
     private String Address;
     private String Birthday;
+    private String Mon;
+    private String day;
     private int Num;
     Contacts(String Name, String HomeNumber, String PhoneNumber, String Address, String Birthday, int Num)
     {
@@ -19,7 +21,8 @@ public class Contacts {
         this.Address = Address;
         this.Birthday = Birthday;
         this.Num = Num;
-        headerWord = PinYinUtils.getPinyin(Name).substring(0, 1);
+        headerWord = PinYinUtils.getPinyin(Name).substring(0, 1).toUpperCase();
+
     }
     public String getName() {
         return Name;
