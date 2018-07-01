@@ -27,4 +27,28 @@ public class CallRecord {
     public String getType(){return this.type;}
     public String getDuration(){return this.duration;}
     public String getLocation(){return this.location;}
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
 }
