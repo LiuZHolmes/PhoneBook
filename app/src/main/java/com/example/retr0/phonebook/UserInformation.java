@@ -16,7 +16,7 @@ import android.app.Dialog;
 import android.widget.DatePicker;
 
 
-
+//新建信息
 public class UserInformation extends AppCompatActivity {
     static boolean isAdd = false;
     private Button return_btn;
@@ -45,6 +45,15 @@ public class UserInformation extends AppCompatActivity {
         etMobile=findViewById(R.id.edit_mobile);
         etAdd=findViewById(R.id.edit_add);
         etBirth=findViewById(R.id.edit_birth);
+
+        //mll修改的添加联系人号码自动填充
+        String new_number = null;
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            new_number = extras.getString("new_number");
+        }
+        etMobile.setText(new_number);
+        //
 
 
         //监听事件

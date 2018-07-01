@@ -21,12 +21,26 @@
             android:text="电话本"
             />
 
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/txt_topbar"
+            android:layout_alignBottom="@+id/txt_topbar"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="18dp"
+            android:switchMinWidth="20dp"
+            android:textOff="  "
+            android:textOn="  "
+            android:thumb="@drawable/thumb"
+            android:track="@drawable/track" />
+
 
         <View
             android:layout_width="match_parent"
             android:layout_height="2px"
             android:background="@color/div_white"
-            android:layout_alignParentBottom="true"/>
+            android:layout_alignParentBottom="true"
+            android:id="@+id/view" />
 
     </RelativeLayout>
 
@@ -92,6 +106,7 @@
         android:layout_below="@id/ly_top_bar"
         android:layout_above="@id/div_tab_bar"
         android:id="@+id/ly_content">
+
 
     </FrameLayout>
 

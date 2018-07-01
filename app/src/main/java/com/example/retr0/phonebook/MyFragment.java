@@ -5,9 +5,11 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.ArrayMap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -23,10 +26,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.Collator;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 
 public class MyFragment extends Fragment  implements  WordsNavigation.onWordsChangeListener,
@@ -39,16 +47,23 @@ public class MyFragment extends Fragment  implements  WordsNavigation.onWordsCha
 
     private int[] s = new int[100];
     //call record issues
-    private ListView recordListView, contactListView;
+    private ListView recordListView, contactListView, totalListView;
+    private Spinner spinnerContent, spinnerTime;
     private SearchView searchView;
-    private List<CallRecord> records;
+    private List<CallRecord> records, datalist,timelist;
     private List<Contacts> Contact,findList;
     private MyContactsAdapter mAdapter;
+    private MyCountAdapter myAdapter;
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
     private WordsNavigation word;
     private Handler handler;
     private TextView tv;
+    private String tempTimes = null;//代表最近时间
+    private String tempContent = null;//代表通话次数
+    private String[] time;
+    private String[] contents;
+    private List<String> vList = new ArrayList<>();
     public MyFragment() {
     }
 
@@ -57,6 +72,8 @@ public class MyFragment extends Fragment  implements  WordsNavigation.onWordsCha
     @Override
     public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = null;
+        time = getResources().getStringArray(R.array.time);//获得时间类型
+        contents = getResources().getStringArray(R.array.content);//获得内容类型
         pref = getActivity().getSharedPreferences("ContactData", Context.MODE_PRIVATE);
         this.content = (String) getArguments().get("str");
         int size=pref.getInt("size",0);
@@ -64,6 +81,7 @@ public class MyFragment extends Fragment  implements  WordsNavigation.onWordsCha
         for(int i=0;i<size;i++) {
             s[i] = pref.getInt("sort"+ i, i);
         }
+        //若有删除，则把静态ArrayList中的变量存入pref中
         if(UserShowInformation.isdelete && UserShowInformation.notzero) {
             size=UserShowInformation.nowSize;
             editor = pref.edit();
@@ -186,7 +204,106 @@ public class MyFragment extends Fragment  implements  WordsNavigation.onWordsCha
         }
         else if(content == getResources().getString(R.string.statistic))
         {
-            view = inflater.inflate(R.layout.statistic_content,container,false);
+            view = inflater.inflate(R.layout.statistic_content, container, false);
+            //统计数据
+
+            spinnerTime = (Spinner) view.findViewById(R.id.spinner_time);
+            spinnerContent = (Spinner) view.findViewById(R.id.spinner_content);
+            totalListView = (ListView) view.findViewById(R.id.totalListView);
+
+            spinnerTime.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    switch (position) {
+                        case 0:
+                            //一周后的记录
+                            tempTimes = time[position];
+                            if (tempContent == null) {
+                                totalContactsData(tempTimes, contents[0]);
+                            } else {
+                                totalContactsData(tempTimes, tempContent);
+                            }
+
+                            break;
+                        case 1:
+                            //一月后的记录
+                            tempTimes = time[position];
+                            if (tempContent == null) {
+                                totalContactsData(tempTimes, contents[0]);
+                            } else {
+                                totalContactsData(tempTimes, tempContent);
+                            }
+                            break;
+                        case 2:
+                            //一年后的记录
+                            tempTimes = time[position];
+                            if (tempContent == null) {
+                                totalContactsData(tempTimes, contents[0]);
+                            } else {
+                                totalContactsData(tempTimes, tempContent);
+                            }
+                            break;
+                        default:
+                            //默认显示一周后记录
+                            tempTimes = time[0];
+                            if (tempContent == null) {
+                                totalContactsData(tempTimes, contents[0]);
+                            } else {
+                                totalContactsData(tempTimes, tempContent);
+                            }
+                            break;
+                    }
+
+                    Log.e("点击了", "" + time[position] + getTime(0));
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+            spinnerContent.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    Log.e("点击了", "" + contents[position]);
+                    switch (position) {
+                        case 0:
+                            //显示通话时长
+                            tempContent = contents[position];
+                            if (tempTimes == null) {
+                                totalContactsData(time[0], tempContent);
+                            } else {
+                                totalContactsData(tempTimes, tempContent);
+                            }
+
+                            break;
+                        case 1:
+                            //显示通话次数
+                            tempContent = contents[position];
+                            if (tempTimes == null) {
+                                totalContactsData(time[0], tempContent);
+                            } else {
+                                totalContactsData(tempTimes, tempContent);
+                            }
+                            break;
+                        default:
+                            //默认显示通话时长
+                            tempContent = contents[0];
+                            if (tempTimes == null) {
+                                totalContactsData(time[0], tempContent);
+                            } else {
+                                totalContactsData(tempTimes, tempContent);
+                            }
+                            break;
+
+                    }
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
         }
         Log.d("content",content);
         return view;
@@ -247,7 +364,7 @@ public class MyFragment extends Fragment  implements  WordsNavigation.onWordsCha
             while ((line = reader.readLine()) != null)
             {
                 String [] arr = line.split("\\s+");
-                CallRecord tmpRecord = new CallRecord(arr[0], arr[1], arr[2], arr[3], arr[4]);
+                CallRecord tmpRecord = new CallRecord(arr[0], arr[1], arr[2], arr[3], arr[4], arr[5]);
                 records.add(tmpRecord);
             }
             inputStream.close();
@@ -318,9 +435,92 @@ public class MyFragment extends Fragment  implements  WordsNavigation.onWordsCha
             Contact.add(tmpContact);
 
         }
+    }
+
+    private void totalContactsData(String selectTime, String selectContent) {
+        readRecords();
+        //统计数据
+        datalist = new ArrayList<CallRecord>();
+        timelist= new ArrayList<CallRecord>();
+        if (datalist.size() > 0) {
+            datalist.clear();
+        }
+        if (timelist.size() > 0) {
+            timelist.clear();
+        }
+        if (vList.size() > 0) {
+            vList.clear();
+        }
+
+        if (selectTime == (time[0]) && selectContent == (contents[0])) {
+            getCout(7,"0");
+        } else if (selectTime == (time[0]) && selectContent == (contents[1])) {
+            getCout(7,"1");
+        } else if (selectTime == (time[1]) && selectContent == (contents[0])) {
+            getCout(30,"0");
+        } else if (selectTime == (time[1]) && selectContent == (contents[1])) {
+            getCout(30,"1");
+        } else if (selectTime == (time[2]) && selectContent == (contents[0])) {
+            getCout(365,"0");
+        } else if (selectTime == (time[2]) && selectContent == (contents[1])) {
+            getCout(365,"1");
+        }
 
 
     }
 
+    private void getCout(int time,String tag) {
+        List<String> mlist = new ArrayList<>();
+        for (int i = 0; i < records.size(); i++) {
+            CallRecord contact = records.get(i);
+            if (dataLong(getTime(time)) <= dataLong(contact.getDate() + " " + contact.getTime()) && dataLong(contact.getDate() + " " + contact.getTime()) <= dataLong(getTime(0))) {
+                vList.add(contact.getNumber());
+                timelist.add(contact);
+                for (int j = 0; j < records.size(); j++) {
+                    if (contact.getNumber().equals(records.get(j).getNumber())) {
+                        if (!mlist.contains(contact.getNumber())) {
+                            mlist.add(contact.getNumber());
+                            contact.setLocation(tag);;
+                            datalist.add(contact);
 
+                        }
+                    }
+
+                }
+
+            }
+
+        }
+
+        myAdapter = new MyCountAdapter(getActivity(), datalist, vList,timelist);
+        myAdapter.notifyDataSetChanged();
+        totalListView.setAdapter(myAdapter);
+    }
+
+    private static String getTime(int time) {
+        //获取日期
+        String times;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date dBefore = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.DAY_OF_MONTH, -time);//往后推一天  30推三十天  365推一年
+        dBefore = calendar.getTime();
+        times = sdf.format(dBefore);
+        return times;
+    }
+
+    private static long dataLong(String time) {
+        //字符串时间转换成long
+        long times = 0;
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        try {
+            Date date = format.parse(time);
+            times = date.getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return times;
+    }
 }
