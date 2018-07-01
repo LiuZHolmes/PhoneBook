@@ -6,7 +6,7 @@
         <item>最近一年</item>
     </string-array>
     <string-array name="content">
-        <item>通话数</item>
         <item>通话时长</item>
+        <item>通话次数</item>
     </string-array>
 </resources>

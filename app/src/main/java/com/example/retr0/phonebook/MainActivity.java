@@ -3,24 +3,29 @@ package com.example.retr0.phonebook;
 import android.annotation.SuppressLint;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
-
+import java.util.TimeZone;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -37,19 +42,97 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //Fragment Object
     private MyFragment fg1,fg2,fg3;
     private FragmentManager fManager;
-
+    private String Mon,Day,NowMon,NowDay,Fes;
+    private SharedPreferences pref;
+    private List<String> BirthName;
+    private boolean show=false;
+    private SharedPreferences.Editor editor;
     private WordsNavigation word;
-
-
+    private Calendar calendar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
+        pref = getSharedPreferences("ContactData", Context.MODE_PRIVATE);
+        editor=pref.edit();
+        BirthName=new ArrayList<>();
+        Fes="";
+        readDate();
+
         fManager = getFragmentManager();
         bindViews();
         txt_contact.performClick();   //模拟一次点击，即进去后选择第一项
 
+    }
+
+    private void readDate() {
+        calendar=Calendar.getInstance();
+        calendar.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+        NowMon=String.valueOf(calendar.get(Calendar.MONTH)+1);
+        NowDay=String.valueOf(calendar.get(Calendar.DATE));
+        String m=pref.getString("Now_Mon","");
+        String d=pref.getString("Now_Day","");
+        Log.d("mm",m);
+        Log.d("dd",d);
+        int size=pref.getInt("size",0);
+        for(int i=0;i<size;i++)
+        {
+            String birth=pref.getString("contact_birth"+i,"");
+            if(birth!="")
+            {
+                String s[]=birth.split("/");
+                Mon=s[1];
+                Day=s[2];
+                Log.d("m",Mon);
+                Log.d("d",Day);
+                if(Mon.equals(NowMon)&&Day.equals(NowDay))
+                {
+                    String name=pref.getString("contact_name"+i,"");
+                    BirthName.add(name);
+                }
+            }
+        }
+        InputStream inputStream = getResources().openRawResource(R.raw.festival);
+        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+        BufferedReader reader = new BufferedReader(inputStreamReader);
+        String line;
+        try {
+            while ((line = reader.readLine()) != null)
+            {
+                String [] arr = line.split("\\s+");
+                String m1=arr[1];
+                String d1=arr[2];
+                Log.d("fes",m1+d1+arr[0]);
+                if(NowMon.equals(m1)&&NowDay.equals(d1))
+                    Fes=arr[0];
+            }
+            inputStream.close();
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        if(!NowDay.equals(d)||!NowMon.equals(m))
+        {
+            String ss="";
+            for(int i=0;i<BirthName.size();i++)
+            {
+                if(i==0)
+                    ss+="今天是";
+                if(i!=0)
+                    ss+="&";
+                ss+=BirthName.get(i);
+                if(i==BirthName.size()-1)
+                    ss+="的生日!";
+            }
+            if(Fes.equals(""))
+                Toast.makeText(MainActivity.this,ss,Toast.LENGTH_LONG).show();
+            else
+                Toast.makeText(MainActivity.this,ss+"\n"+"今天是"+Fes,Toast.LENGTH_LONG).show();
+            editor.putString("Now_Mon",NowMon);
+            editor.putString("Now_Day",NowDay);
+            editor.apply();
+        }
     }
 
 
@@ -141,14 +224,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent = new Intent();
         intent.setClass(MainActivity.this,UserInformation.class);
         startActivity(intent);
-    }
-
-    public boolean onQueryTextSubmit(String query) {
-        if(TextUtils.isEmpty(query)) {
-            Toast.makeText(this, " ", Toast.LENGTH_SHORT);
-
-        }
-        return true;
     }
 
 

@@ -8,7 +8,13 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+import java.util.Calendar;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.widget.DatePicker;
+
 
 
 public class UserInformation extends AppCompatActivity {
@@ -16,9 +22,13 @@ public class UserInformation extends AppCompatActivity {
     private Button return_btn;
     private Button ok_button;
     private int size;
-    private EditText etName,etHome,etMobile,etAdd,etBirth;
+    private EditText etName,etHome,etMobile,etAdd;
+    private TextView etBirth;
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
+
+    private int mYear, mMonth, mDay;
+    final int DATE_DIALOG = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,8 +46,57 @@ public class UserInformation extends AppCompatActivity {
         etAdd=findViewById(R.id.edit_add);
         etBirth=findViewById(R.id.edit_birth);
 
+        //mll修改的添加联系人号码自动填充
+        String new_number = null;
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            new_number = extras.getString("new_number");
+        }
+        etMobile.setText(new_number);
+        //
+
+
+        //监听事件
+        etBirth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog(DATE_DIALOG);
+            }
+        });
+
+        final Calendar ca = Calendar.getInstance();
+        mYear = ca.get(Calendar.YEAR);
+        mMonth = ca.get(Calendar.MONTH);
+        mDay = ca.get(Calendar.DAY_OF_MONTH);
+
 
     }
+
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        switch (id) {
+            case DATE_DIALOG:
+                return new DatePickerDialog(UserInformation.this, mdateListener, mYear, mMonth, mDay);
+        }
+        return null;
+    }
+    DatePickerDialog.OnDateSetListener mdateListener = new DatePickerDialog.OnDateSetListener() {
+
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear,
+                              int dayOfMonth) {
+            mYear = year;
+            mMonth = monthOfYear;
+            mDay = dayOfMonth;
+            display();
+        }
+        /**
+         * 设置日期 利用StringBuffer追加
+        */
+        private void display() {
+            etBirth.setText(new StringBuffer().append(mYear).append("/").append(mMonth + 1).append("/").append(mDay));
+        }
+    };
     public void return_main_page(View view) {
         Intent intent = new Intent();
         intent.setClass(UserInformation.this,MainActivity.class);
