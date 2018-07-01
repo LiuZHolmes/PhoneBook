@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -48,6 +49,7 @@ public class MyContactsAdapter extends BaseAdapter {
             holder.name = (TextView) convertView.findViewById(R.id.contact_name);
             holder.phone = (TextView) convertView.findViewById(R.id.contact_phone);
             holder.tv_word= (TextView) convertView.findViewById(R.id.tv_word);
+
             convertView.setTag(holder);
         } else {   //else里面说明，convertView已经被复用了，说明convertView中已经设置过tag了，即holder
             holder = (MyContactsAdapter.ViewHolder) convertView.getTag();
@@ -59,6 +61,11 @@ public class MyContactsAdapter extends BaseAdapter {
 
         String word=mDatas.get(position).getHeaderWord();//第一个字母
         holder.tv_word.setText(word);
+
+        //用level-list来修改头像
+        ImageView head = (ImageView)convertView.findViewById(R.id.imageView);
+        int ran = Con.getNum() % 6;
+        head.getDrawable().setLevel(ran);
 
         //将相同字母开头的合并在一起
         if(position==0){

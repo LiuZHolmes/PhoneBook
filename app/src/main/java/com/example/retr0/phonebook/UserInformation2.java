@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 
-
+//编辑信息
 public class UserInformation2 extends AppCompatActivity {
     static boolean isEdit = false;
     private Button return_btn;

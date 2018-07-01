@@ -23,7 +23,7 @@
         android:layout_alignParentStart="true"
 
         android:layout_marginTop="10dp"
-        android:background="@drawable/head" />
+        android:src="@drawable/level" />
 
     <TextView
         android:id="@+id/contact_name"
