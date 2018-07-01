@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Calendar;
+import java.util.Locale;
 
 //编辑信息
 public class UserInformation2 extends AppCompatActivity {
@@ -95,6 +96,7 @@ public class UserInformation2 extends AppCompatActivity {
         }
         return null;
     }
+
     DatePickerDialog.OnDateSetListener mdateListener = new DatePickerDialog.OnDateSetListener() {
 
         @Override

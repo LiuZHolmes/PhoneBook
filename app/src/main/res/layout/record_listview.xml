@@ -12,7 +12,7 @@
          android:singleLine="true"
          android:text="1319195320"
          android:textColor="#000"
-         android:textSize="30sp" />
+         android:textSize="25sp" />
 
      <TextView
          android:id="@+id/date"
