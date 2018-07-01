@@ -1,5 +1,6 @@
 package com.example.retr0.phonebook;
 
+import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -10,8 +11,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.view.animation.BounceInterpolator;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Switch;
@@ -28,6 +32,7 @@ import java.util.List;
 import java.util.TimeZone;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+
 
     //UI Object
     private TextView txt_topbar;
@@ -63,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fManager = getFragmentManager();
         bindViews();
         txt_contact.performClick();   //模拟一次点击，即进去后选择第一项
+
 
     }
 
@@ -220,11 +226,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fTransaction.commit();
     }
 
+
     public  void click_add_user(View view) {
         Intent intent = new Intent();
         intent.setClass(MainActivity.this,UserInformation.class);
         startActivity(intent);
     }
+
 
 
 }

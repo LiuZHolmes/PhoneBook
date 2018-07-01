@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_topbar">
+    android:background="@color/bg_topbar"
+    >
 
 
     <LinearLayout
@@ -162,7 +163,8 @@
             android:layout_alignStart="@+id/edit_add"
             android:ems="10"
             android:textColor="@color/colorPrimary"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            />
 
     </RelativeLayout>
 </RelativeLayout>
