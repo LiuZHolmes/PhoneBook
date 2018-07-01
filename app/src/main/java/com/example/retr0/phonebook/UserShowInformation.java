@@ -12,7 +12,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-
+//显示信息
 public class UserShowInformation extends AppCompatActivity {
     static List<String> name, birth, mobile, add, home;
     static int nowSize;
@@ -62,21 +62,8 @@ public class UserShowInformation extends AppCompatActivity {
         startActivity(intent);
     }
     public void check_delete(View view) {
-        /*int num = pref.getInt("contactSize", 0);
-        editor = pref.edit();
-        editor.remove("contact_home" + num);
-        editor.remove("contact_name" + num);
-        editor.remove("contact_add" + num);
-        editor.remove("contact_birth" + num);
-        editor.remove("contact_mobile" + num);
-        editor.remove("contact_size" + num);
-        num = pref.getInt("size", 0);
-        //editor.putInt("size", num - 1);
-        editor.apply();
 
-        */
-
-
+        //用静态的ArrayList储存pref里的数据，在MyFragment里面放回
         isdelete = true;
         editor = pref.edit();
         int num = pref.getInt("contactSize", 0);

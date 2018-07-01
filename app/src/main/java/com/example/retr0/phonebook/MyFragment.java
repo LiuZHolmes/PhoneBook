@@ -81,6 +81,7 @@ public class MyFragment extends Fragment  implements  WordsNavigation.onWordsCha
         for(int i=0;i<size;i++) {
             s[i] = pref.getInt("sort"+ i, i);
         }
+        //若有删除，则把静态ArrayList中的变量存入pref中
         if(UserShowInformation.isdelete && UserShowInformation.notzero) {
             size=UserShowInformation.nowSize;
             editor = pref.edit();
@@ -434,8 +435,6 @@ public class MyFragment extends Fragment  implements  WordsNavigation.onWordsCha
             Contact.add(tmpContact);
 
         }
-
-
     }
 
     private void totalContactsData(String selectTime, String selectContent) {

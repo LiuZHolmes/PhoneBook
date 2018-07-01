@@ -16,7 +16,7 @@ import android.app.Dialog;
 import android.widget.DatePicker;
 
 
-
+//新建信息
 public class UserInformation extends AppCompatActivity {
     static boolean isAdd = false;
     private Button return_btn;
