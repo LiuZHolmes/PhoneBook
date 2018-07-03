@@ -21,19 +21,6 @@
             android:text="电话本"
             />
 
-        <Switch
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/txt_topbar"
-            android:layout_alignBottom="@+id/txt_topbar"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="18dp"
-            android:switchMinWidth="20dp"
-            android:textOff="  "
-            android:textOn="  "
-            android:thumb="@drawable/thumb"
-            android:track="@drawable/track" />
-
 
         <View
             android:layout_width="match_parent"
