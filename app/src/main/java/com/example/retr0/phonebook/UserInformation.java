@@ -109,29 +109,36 @@ public class UserInformation extends AppCompatActivity {
         String add=etAdd.getText().toString();
         String birth=etBirth.getText().toString();
 
-        editor=pref.edit();
-        editor.putString("contact_name"+size,name);
-        editor.putString("contact_home"+size,home);
-        editor.putString("contact_mobile"+size,mobile);
-        editor.putString("contact_add"+size,add);
-        editor.putString("contact_birth"+size,birth);
-        editor.putInt("size",size+1);
-        editor.putInt("contact_size"+size,size);
-        editor.putString("contactName",name);
-        editor.putString("contactHome",home);
-        editor.putString("contactMobile",mobile);
-        editor.putString("contactAdd",add);
-        editor.putString("contactBirth",birth);
-        editor.putInt("contactSize",size);
-        editor.apply();
+        if(name.length()>=1)
+        {
+            editor=pref.edit();
+            editor.putString("contact_name"+size,name);
+            editor.putString("contact_home"+size,home);
+            editor.putString("contact_mobile"+size,mobile);
+            editor.putString("contact_add"+size,add);
+            editor.putString("contact_birth"+size,birth);
+            editor.putInt("size",size+1);
+            editor.putInt("contact_size"+size,size);
+            editor.putString("contactName",name);
+            editor.putString("contactHome",home);
+            editor.putString("contactMobile",mobile);
+            editor.putString("contactAdd",add);
+            editor.putString("contactBirth",birth);
+            editor.putInt("contactSize",size);
+            editor.apply();
 
-        DisplayToast(getResources().getString(R.string.add_succeed));
+            DisplayToast(getResources().getString(R.string.add_succeed));
 
-        isAdd = true;
+            isAdd = true;
 
-        Intent intent = new Intent();
-        intent.setClass(UserInformation.this,UserShowInformation.class);
-        startActivity(intent);
+            Intent intent = new Intent();
+            intent.setClass(UserInformation.this,UserShowInformation.class);
+            startActivity(intent);
+        }
+        else
+        {
+            Toast.makeText(this,"姓名不能为空",Toast.LENGTH_SHORT).show();
+        }
     }
     public void DisplayToast(String s) {
         Toast toast=Toast.makeText(this,s,Toast.LENGTH_SHORT);
