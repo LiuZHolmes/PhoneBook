@@ -1,21 +1,36 @@
 # PhoneBook 安卓设计大作业项目——电话本
 
-## 待完成
+## 进度展示
 
 ### 框架
 
-1. 未接来电开关的形状有点奇怪（椭圆？）
-2. Spinner的美化
+完成。
 
 ### 通讯录
 
-待完成。
+完成。
+
+![image-20180703111643689](/var/folders/44/70vdnlf949ncthnpw4x9hch00000gn/T/abnerworks.Typora/image-20180703111643689.png)
+
+![image-20180703111731772](/var/folders/44/70vdnlf949ncthnpw4x9hch00000gn/T/abnerworks.Typora/image-20180703111731772.png)
+
+### 最近通话
+
+完成。
+
+![image-20180703111833111](/var/folders/44/70vdnlf949ncthnpw4x9hch00000gn/T/abnerworks.Typora/image-20180703111833111.png)
 
 ### 通话统计
 
-待完成。
+完成。
+
+![image-20180703111712906](/var/folders/44/70vdnlf949ncthnpw4x9hch00000gn/T/abnerworks.Typora/image-20180703111712906.png)
 
 ## 进度记录
+
+###2018-7-3
+
+项目完成。
 
 ### 2018-6-15
 
